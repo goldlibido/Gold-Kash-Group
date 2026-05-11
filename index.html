@@ -5,14 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Gold Kash Group</title>
+
 <meta name="description" content="We make hospitality cinematic. Gold Kash Group builds immersive restaurants and nightlife venues using filmmaking and theme park design techniques." />
 
 <link rel="icon" href="IMG_3254 (1).png" type="image/png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+
 :root {
   --gold: #c9982f;
   --gold-bright: #f6dc8b;
@@ -31,15 +35,22 @@ body {
   background:
     radial-gradient(circle at top, rgba(201,152,47,0.14), transparent 42%),
     linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
+
   color: var(--ink);
+
   font-family: 'Inter Tight', sans-serif;
+
   min-height: 100vh;
   overflow-x: hidden;
 }
 
+/* HERO */
+
 .hero {
   min-height: auto;
-  padding: 70px 24px 40px;
+
+  padding: 70px 24px 20px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,48 +58,70 @@ body {
 
 .logo {
   width: min(72vw, 420px);
+
   display: block;
+
   filter:
     drop-shadow(0 0 25px rgba(244,210,122,0.35))
     drop-shadow(0 20px 50px rgba(0,0,0,0.7));
 }
 
+/* MANTRA */
+
 .mantra {
   max-width: 1100px;
+
   margin: 0 auto;
-  padding: 20px 24px 100px;
+
+  padding: 0px 24px 100px;
+
   text-align: center;
 }
 
 .mantra-eyebrow {
   color: var(--gold);
+
+  font-family: 'Cinzel', serif;
+
   font-size: 12px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
+
   margin-bottom: 18px;
 }
 
 .mantra-headline {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cinzel', serif;
+
   font-size: clamp(42px, 7vw, 94px);
+
   line-height: 1.04;
+
   margin-bottom: 38px;
-  font-weight: 400;
+
+  font-weight: 500;
 }
 
 .mantra-headline em {
-  font-style: italic;
+  font-style: normal;
+
   background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .mantra-body {
   max-width: 56ch;
+
   margin: 0 auto;
+
   color: var(--ink-dim);
+
   font-family: 'Playfair Display', serif;
+
   font-size: clamp(20px, 2vw, 28px);
+
   line-height: 1.6;
 }
 
@@ -97,36 +130,64 @@ body {
   font-style: italic;
 }
 
+/* CONTACT */
+
 .contact {
   max-width: 760px;
+
   margin: 0 auto;
+
   padding: 70px 24px 140px;
 }
 
 .contact-eyebrow {
   text-align: center;
+
   color: var(--gold);
+
+  font-family: 'Cinzel', serif;
+
   font-size: 10px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   margin-bottom: 20px;
 }
 
 .contact-title {
   text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+
+  font-family: 'Cinzel', serif;
+
   font-size: clamp(40px, 6vw, 72px);
+
   margin-bottom: 16px;
+
+  font-weight: 500;
+}
+
+.contact-title em {
+  font-style: normal;
+
+  background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .contact-sub {
   text-align: center;
+
   color: var(--ink-dim);
+
   max-width: 42ch;
+
   margin: 0 auto 60px;
+
   line-height: 1.6;
 }
+
+/* FORM */
 
 form {
   display: grid;
@@ -141,8 +202,13 @@ form {
 
 .field label {
   display: block;
+
   margin-bottom: 12px;
+
   color: var(--gold);
+
+  font-family: 'Cinzel', serif;
+
   font-size: 9px;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -152,21 +218,32 @@ form {
 .field textarea,
 .field select {
   width: 100%;
+
   background: transparent;
+
   border: none;
   border-bottom: 1px solid var(--rule);
+
   padding: 12px 0;
+
   color: var(--ink);
+
   outline: none;
+
   font-family: 'Playfair Display', serif;
+
   font-size: 18px;
 }
 
 .field textarea {
   min-height: 120px;
+
   resize: vertical;
+
   font-family: 'Inter Tight', sans-serif;
+
   font-size: 15px;
+
   line-height: 1.6;
 }
 
@@ -190,16 +267,27 @@ form {
   background: #140b05;
 }
 
+/* BUTTON */
+
 .submit {
   margin-top: 18px;
+
   background: transparent;
+
   border: 1px solid var(--gold);
+
   color: var(--gold-bright);
+
   padding: 20px 40px;
+
+  font-family: 'Cinzel', serif;
+
   font-size: 11px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   cursor: pointer;
+
   transition: all 0.35s ease;
 }
 
@@ -208,19 +296,30 @@ form {
   color: #080403;
 }
 
+/* FOOTER */
+
 footer {
   border-top: 1px solid var(--rule);
+
   padding: 40px;
+
   text-align: center;
+
   color: var(--ink-dim);
+
+  font-family: 'Cinzel', serif;
+
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
 
+/* MOBILE */
+
 @media (max-width: 768px) {
+
   .hero {
-    padding: 55px 24px 25px;
+    padding: 55px 24px 15px;
   }
 
   .logo {
@@ -228,7 +327,7 @@ footer {
   }
 
   .mantra {
-    padding: 10px 24px 80px;
+    padding: 0px 24px 80px;
   }
 
   .form-row {
@@ -238,41 +337,56 @@ footer {
   footer {
     padding: 34px 20px;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <section class="hero">
+
   <img class="logo" src="IMG_3254 (1).png" alt="Gold Kash Group">
+
 </section>
 
 <section class="mantra">
-  <div class="mantra-eyebrow">Our Mantra</div>
+
+  <div class="mantra-eyebrow">
+    Our Mantra
+  </div>
 
   <h1 class="mantra-headline">
     We Make Hospitality <em>Cinematic.</em>
   </h1>
 
   <p class="mantra-body">
-    By applying filmmaking and theme park design techniques to IRL experiences, we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em> We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
+    By applying filmmaking and theme park design techniques to IRL experiences we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em> We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
   </p>
+
 </section>
 
 <section class="contact">
-  <div class="contact-eyebrow">Private Inquiries</div>
 
-  <h2 class="contact-title">Let's <em>talk.</em></h2>
+  <div class="contact-eyebrow">
+    Private Inquiries
+  </div>
+
+  <h2 class="contact-title">
+    Let's <em>Talk.</em>
+  </h2>
 
   <p class="contact-sub">
     For developers, press, partnerships, and prospective licensees.
   </p>
 
   <form name="contact" method="POST" data-netlify="true">
+
     <input type="hidden" name="form-name" value="contact">
 
     <div class="form-row">
+
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Your name" required>
@@ -282,16 +396,20 @@ footer {
         <label>Email</label>
         <input type="email" name="email" placeholder="you@example.com" required>
       </div>
+
     </div>
 
     <div class="form-row">
+
       <div class="field">
         <label>Company</label>
         <input type="text" name="company" placeholder="Optional">
       </div>
 
       <div class="field">
+
         <label>Inquiry Type</label>
+
         <select name="reason" required>
           <option value="">Select one</option>
           <option>Development Partnership</option>
@@ -300,16 +418,25 @@ footer {
           <option>Careers</option>
           <option>Other</option>
         </select>
+
       </div>
+
     </div>
 
     <div class="field">
+
       <label>Message</label>
+
       <textarea name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
+
     </div>
 
-    <button type="submit" class="submit">Send Inquiry →</button>
+    <button type="submit" class="submit">
+      Send Inquiry →
+    </button>
+
   </form>
+
 </section>
 
 <footer>
