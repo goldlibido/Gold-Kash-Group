@@ -13,10 +13,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 :root {
   --gold: #c9982f;
   --gold-bright: #f6dc8b;
@@ -35,7 +34,6 @@ body {
   background:
     radial-gradient(circle at top, rgba(201,152,47,0.14), transparent 42%),
     linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
-
   color: var(--ink);
   font-family: 'Inter Tight', sans-serif;
   min-height: 100vh;
@@ -76,24 +74,22 @@ body {
 }
 
 .mantra-headline {
-  font-family: 'Cormorant SC', serif;
-  font-size: clamp(46px, 7vw, 96px);
+  font-family: 'Forum', serif;
+  font-size: clamp(48px, 7vw, 100px);
   line-height: 1.02;
   margin-bottom: 42px;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  font-weight: 400;
+  letter-spacing: 0.04em;
 }
 
 .mantra-headline em {
   font-style: normal;
-
   background: linear-gradient(
     135deg,
     #f6dc8b 0%,
     #c9982f 50%,
     #f6dc8b 100%
   );
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -130,32 +126,22 @@ body {
 
 .contact-eyebrow {
   text-align: center;
-
   color: var(--gold);
-
-  font-family: 'Cormorant SC', serif;
-
-  font-size: 11px;
-  letter-spacing: 0.42em;
+  font-family: 'Forum', serif;
+  font-size: 12px;
+  letter-spacing: 0.44em;
   text-transform: uppercase;
-
   margin-bottom: 20px;
 }
 
 .contact-title {
   text-align: center;
-
-  font-family: 'Cormorant SC', serif;
-
-  font-size: clamp(44px, 6vw, 74px);
-
+  font-family: 'Forum', serif;
+  font-size: clamp(46px, 6vw, 78px);
   margin-bottom: 16px;
-
-  font-weight: 500;
-
+  font-weight: 400;
   color: var(--ink);
-
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
 }
 
 .contact-title em {
@@ -165,13 +151,9 @@ body {
 
 .contact-sub {
   text-align: center;
-
   color: var(--ink-dim);
-
   max-width: 42ch;
-
   margin: 0 auto 60px;
-
   line-height: 1.6;
 }
 
@@ -190,14 +172,10 @@ form {
 
 .field label {
   display: block;
-
   margin-bottom: 12px;
-
   color: var(--gold);
-
-  font-family: 'Cormorant SC', serif;
-
-  font-size: 10px;
+  font-family: 'Forum', serif;
+  font-size: 12px;
   letter-spacing: 0.38em;
   text-transform: uppercase;
 }
@@ -206,32 +184,21 @@ form {
 .field textarea,
 .field select {
   width: 100%;
-
   background: transparent;
-
   border: none;
   border-bottom: 1px solid var(--rule);
-
   padding: 12px 0;
-
   color: var(--ink);
-
   outline: none;
-
   font-family: 'Playfair Display', serif;
-
   font-size: 18px;
 }
 
 .field textarea {
   min-height: 120px;
-
   resize: vertical;
-
   font-family: 'Inter Tight', sans-serif;
-
   font-size: 15px;
-
   line-height: 1.6;
 }
 
@@ -259,23 +226,15 @@ form {
 
 .submit {
   margin-top: 18px;
-
   background: transparent;
-
   border: 1px solid var(--gold);
-
   color: var(--gold-bright);
-
   padding: 20px 40px;
-
-  font-family: 'Cormorant SC', serif;
-
-  font-size: 12px;
+  font-family: 'Forum', serif;
+  font-size: 13px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-
   cursor: pointer;
-
   transition: all 0.35s ease;
 }
 
@@ -288,16 +247,11 @@ form {
 
 footer {
   border-top: 1px solid var(--rule);
-
   padding: 40px;
-
   text-align: center;
-
   color: var(--ink-dim);
-
-  font-family: 'Cormorant SC', serif;
-
-  font-size: 11px;
+  font-family: 'Forum', serif;
+  font-size: 12px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
@@ -305,7 +259,6 @@ footer {
 /* MOBILE */
 
 @media (max-width: 768px) {
-
   .hero {
     padding: 55px 24px 15px;
   }
@@ -325,9 +278,7 @@ footer {
   footer {
     padding: 34px 20px;
   }
-
 }
-
 </style>
 </head>
 
@@ -405,7 +356,6 @@ footer {
       </div>
 
       <div class="field">
-
         <label>Inquiry Type</label>
 
         <select name="reason" required>
@@ -416,7 +366,6 @@ footer {
           <option>Careers</option>
           <option>Other</option>
         </select>
-
       </div>
 
     </div>
