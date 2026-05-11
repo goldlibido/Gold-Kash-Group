@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Gold Kash Group</title>
+
 <meta name="description" content="We make hospitality cinematic. Gold Kash Group builds immersive restaurants and nightlife venues using filmmaking and theme park design techniques." />
 
-<link rel="icon" href="75F4B5D5-7F6E-4A55-ADA0-7A4665E646B0.jpeg" type="image/jpeg">
+<link rel="icon" href="IMG_3254 (1).png" type="image/png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+
 :root {
   --bg-deep: #050302;
-  --gold-deep: #6e4c14;
   --gold: #c9982f;
   --gold-bright: #f6dc8b;
   --gold-glow: rgba(244,210,122,0.45);
@@ -23,127 +27,147 @@
   --rule: rgba(201,152,47,0.22);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background:
-    radial-gradient(ellipse at 50% 0%, #3b240a 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, #2a1a08 0%, transparent 55%),
-    linear-gradient(180deg, #0a0604 0%, #1a0e04 50%, #0a0604 100%);
-  background-attachment: fixed;
+    radial-gradient(circle at top, rgba(201,152,47,0.12), transparent 40%),
+    linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
+
   color: var(--ink);
-  font-family: 'Inter Tight', system-ui, sans-serif;
-  font-weight: 300;
+  font-family: 'Inter Tight', sans-serif;
   overflow-x: hidden;
-  line-height: 1.5;
   min-height: 100vh;
 }
+
+/* NAV */
 
 .topbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 26px 44px;
+
+  padding: 26px 42px;
+
+  z-index: 100;
+}
+
+.mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--gold-bright);
+  font-size: 18px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
   font-size: 10px;
-  letter-spacing: 0.34em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink-dim);
 }
 
-.topbar .mark {
-  color: var(--gold-bright);
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 17px;
-  letter-spacing: 0.02em;
-  text-transform: none;
-}
-
-.topbar .right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.topbar .dot {
+.dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--gold-bright);
   box-shadow: 0 0 10px var(--gold-bright);
-  animation: pulse 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
+/* HERO */
 
 .hero {
-  position: relative;
   min-height: 100vh;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
   padding: 120px 24px 60px;
-  overflow: hidden;
+
+  position: relative;
 }
 
 .hero::before {
   content: '';
+
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70vmin;
-  height: 70vmin;
-  background: radial-gradient(circle at center, var(--gold-glow) 0%, transparent 55%);
+  width: 700px;
+  height: 700px;
+
+  background: radial-gradient(circle, rgba(244,210,122,0.20) 0%, transparent 70%);
+
   filter: blur(40px);
+
   pointer-events: none;
-  opacity: 1;
 }
 
+/* LOGO */
+
 .logo-container {
-  width: min(58vmin, 540px);
+  width: min(60vw, 520px);
   aspect-ratio: 1;
+
   position: relative;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
+
   perspective: 1600px;
+
+  cursor: grab;
   z-index: 2;
 }
 
-.logo-container.dragging { cursor: grabbing; }
+.logo-container.dragging {
+  cursor: grabbing;
+}
 
 .logo-spinner {
   width: 100%;
   height: 100%;
+
+  position: relative;
+
   transform-style: preserve-3d;
-  will-change: transform;
-  animation: logoFloat 6s ease-in-out infinite;
+
+  animation: float 6s ease-in-out infinite;
 }
 
-@keyframes logoFloat {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -14px; }
+@keyframes float {
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
 }
 
 .logo-face {
   position: absolute;
   inset: 0;
-  backface-visibility: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  backface-visibility: hidden;
 }
 
 .logo-face.back {
@@ -154,51 +178,61 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+
   filter:
-    drop-shadow(0 0 30px rgba(244,210,122,0.45))
-    drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-  border-radius: 50%;
+    drop-shadow(0 0 25px rgba(244,210,122,0.45))
+    drop-shadow(0 20px 50px rgba(0,0,0,0.7));
 }
+
+/* HINT */
 
 .coin-hint {
-  margin-top: 40px;
-  font-size: 10px;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
+  margin-top: 36px;
+
   display: flex;
-  align-items: center;
   gap: 12px;
-  z-index: 2;
+  align-items: center;
+
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+
+  color: var(--ink-dim);
 }
 
-.coin-hint .arr {
+.coin-hint span:last-child {
   color: var(--gold);
-  font-style: italic;
   font-family: 'Playfair Display', serif;
-  text-transform: none;
+  font-style: italic;
   letter-spacing: 0;
-  font-size: 13px;
+  text-transform: none;
 }
+
+/* MANTRA */
 
 .mantra {
-  position: relative;
-  padding: 160px 24px 200px;
-  z-index: 2;
   max-width: 1100px;
+
   margin: 0 auto;
+
+  padding: 120px 24px 180px;
+
+  text-align: center;
 }
 
 .mantra-eyebrow {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 18px;
+
+  margin-bottom: 50px;
+
   font-size: 10px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   color: var(--gold);
-  margin-bottom: 60px;
-  justify-content: center;
 }
 
 .mantra-eyebrow .line {
@@ -209,70 +243,82 @@ body {
 
 .mantra-headline {
   font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: clamp(40px, 6.5vw, 96px);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
-  text-align: center;
-  color: var(--ink);
-  margin-bottom: 80px;
+
+  font-size: clamp(42px, 7vw, 96px);
+  line-height: 1.04;
+
+  margin-bottom: 60px;
 }
 
 .mantra-headline em {
   font-style: italic;
+
   background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
   -webkit-background-clip: text;
-  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .mantra-body {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 2vw, 28px);
-  line-height: 1.55;
-  color: var(--ink-dim);
-  max-width: 56ch;
+  max-width: 54ch;
+
   margin: 0 auto;
-  text-align: center;
+
+  color: var(--ink-dim);
+
+  font-family: 'Playfair Display', serif;
+
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.6;
 }
 
 .mantra-body em {
-  font-style: italic;
   color: var(--gold-bright);
+  font-style: italic;
 }
 
+/* CONTACT */
+
 .contact {
-  position: relative;
-  padding: 100px 24px 140px;
-  max-width: 720px;
+  max-width: 760px;
+
   margin: 0 auto;
+
+  padding: 100px 24px 140px;
 }
 
 .contact-eyebrow {
   text-align: center;
-  font-size: 10px;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
+
   color: var(--gold);
-  margin-bottom: 24px;
+
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+
+  margin-bottom: 20px;
 }
 
 .contact-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-style: italic;
-  font-size: clamp(36px, 5vw, 64px);
   text-align: center;
-  color: var(--ink);
+
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+
+  font-size: clamp(40px, 6vw, 72px);
+
   margin-bottom: 16px;
 }
 
 .contact-sub {
   text-align: center;
-  font-size: 15px;
+
   color: var(--ink-dim);
-  max-width: 44ch;
-  margin: 0 auto 64px;
+
+  max-width: 42ch;
+
+  margin: 0 auto 60px;
+
+  line-height: 1.6;
 }
 
 form {
@@ -288,32 +334,48 @@ form {
 
 .field label {
   display: block;
-  font-size: 9px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
+
   margin-bottom: 12px;
+
+  color: var(--gold);
+
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
 }
 
 .field input,
 .field textarea,
 .field select {
   width: 100%;
+
   background: transparent;
+
   border: none;
   border-bottom: 1px solid var(--rule);
+
+  padding: 12px 0;
+
   color: var(--ink);
+
+  outline: none;
+
   font-family: 'Playfair Display', serif;
   font-size: 18px;
-  padding: 12px 0;
-  outline: none;
 }
 
 .field textarea {
-  min-height: 100px;
+  min-height: 120px;
   resize: vertical;
+
   font-family: 'Inter Tight', sans-serif;
   font-size: 15px;
+  line-height: 1.6;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(245,233,204,0.4);
 }
 
 .field input:focus,
@@ -322,89 +384,78 @@ form {
   border-bottom-color: var(--gold-bright);
 }
 
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--ink-dim);
-  opacity: 0.5;
-  font-style: italic;
-}
-
-.field select option {
-  background: #1a0e04;
+.field select {
+  background: transparent;
   color: var(--ink);
 }
 
+.field option {
+  background: #140b05;
+}
+
+/* BUTTON */
+
 .submit {
-  margin-top: 24px;
+  margin-top: 18px;
+
   background: transparent;
+
   border: 1px solid var(--gold);
+
   color: var(--gold-bright);
+
   padding: 20px 40px;
-  font-family: 'Inter Tight', sans-serif;
+
   font-size: 11px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   cursor: pointer;
+
+  transition: all 0.35s ease;
 }
 
-.form-status {
-  text-align: center;
-  margin-top: 24px;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 17px;
-  color: var(--gold-bright);
-  opacity: 0;
-  transition: opacity 0.5s;
+.submit:hover {
+  background: var(--gold);
+  color: #080403;
 }
 
-.form-status.visible { opacity: 1; }
+/* FOOTER */
 
 footer {
-  padding: 50px 40px 40px;
   border-top: 1px solid var(--rule);
+
+  padding: 40px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  color: var(--ink-dim);
+
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--ink-dim);
 }
 
 footer .mark {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
   font-size: 15px;
-  color: var(--gold);
-  letter-spacing: 0.02em;
-  text-transform: none;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* MOBILE */
 
 @media (max-width: 768px) {
+
   .topbar {
     padding: 18px 20px;
-    font-size: 9px;
-    letter-spacing: 0.28em;
   }
 
-  .topbar .mark { font-size: 14px; }
+  .mark {
+    font-size: 14px;
+  }
 
-  .hero { padding-top: 100px; }
-
-  .mantra {
-    padding: 100px 24px 120px;
+  .right {
+    font-size: 8px;
   }
 
   .form-row {
@@ -413,11 +464,16 @@ footer .mark {
 
   footer {
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
-    padding: 36px 20px;
   }
+
+  .logo-container {
+    width: min(82vw, 420px);
+  }
+
 }
+
 </style>
 </head>
 
@@ -425,6 +481,7 @@ footer .mark {
 
 <div class="topbar">
   <div class="mark">Gold Kash Group</div>
+
   <div class="right">
     <span class="dot"></span>
     <span>EST. MMXXVI</span>
@@ -432,227 +489,191 @@ footer .mark {
 </div>
 
 <section class="hero">
+
   <div class="logo-container" id="logoContainer">
+
     <div class="logo-spinner" id="logoSpinner">
+
       <div class="logo-face front">
-        <img src="75F4B5D5-7F6E-4A55-ADA0-7A4665E646B0.jpeg" alt="Gold Kash Group" draggable="false" />
+        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
       </div>
+
       <div class="logo-face back">
-        <img src="75F4B5D5-7F6E-4A55-ADA0-7A4665E646B0.jpeg" alt="Gold Kash Group" draggable="false" />
+        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
       </div>
+
     </div>
+
   </div>
 
   <div class="coin-hint">
     <span>Drag</span>
-    <span class="arr">give it a flick</span>
+    <span>give it a flick</span>
   </div>
+
 </section>
 
 <section class="mantra">
-  <div class="mantra-eyebrow reveal">
+
+  <div class="mantra-eyebrow">
     <div class="line"></div>
     <span>Our Mantra</span>
     <div class="line"></div>
   </div>
 
-  <h1 class="mantra-headline reveal">
+  <h1 class="mantra-headline">
     We Make Hospitality <em>Cinematic.</em>
   </h1>
 
-  <p class="mantra-body reveal">
+  <p class="mantra-body">
     By applying filmmaking and theme park design techniques to IRL experiences, we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em> We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
   </p>
+
 </section>
 
 <section class="contact">
-  <div class="contact-eyebrow reveal">Private Inquiries</div>
-  <h2 class="contact-title reveal">Let's <em>talk.</em></h2>
-  <p class="contact-sub reveal">For developers, press, partnerships, and prospective licensees.</p>
 
-  <form id="contactForm" class="reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="contact" />
-    <p style="display:none;">
-      <label>Don't fill this out: <input name="bot-field" /></label>
-    </p>
+  <div class="contact-eyebrow">Private Inquiries</div>
+
+  <h2 class="contact-title">
+    Let's <em>talk.</em>
+  </h2>
+
+  <p class="contact-sub">
+    For developers, press, partnerships, and prospective licensees.
+  </p>
+
+  <form name="contact" method="POST" data-netlify="true">
+
+    <input type="hidden" name="form-name" value="contact">
 
     <div class="form-row">
+
       <div class="field">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required />
+        <label>Name</label>
+        <input type="text" name="name" placeholder="Your name" required>
       </div>
 
       <div class="field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        <label>Email</label>
+        <input type="email" name="email" placeholder="you@example.com" required>
       </div>
+
     </div>
 
     <div class="form-row">
+
       <div class="field">
-        <label for="company">Company</label>
-        <input type="text" id="company" name="company" placeholder="Optional" />
+        <label>Company</label>
+        <input type="text" name="company" placeholder="Optional">
       </div>
 
       <div class="field">
-        <label for="reason">Inquiry Type</label>
-        <select id="reason" name="reason" required>
+        <label>Inquiry Type</label>
+
+        <select name="reason" required>
           <option value="">Select one</option>
-          <option value="development">Development Partnership</option>
-          <option value="licensing">Concept Licensing</option>
-          <option value="press">Press</option>
-          <option value="careers">Careers</option>
-          <option value="other">Other</option>
+          <option>Development Partnership</option>
+          <option>Concept Licensing</option>
+          <option>Press</option>
+          <option>Careers</option>
+          <option>Other</option>
         </select>
       </div>
+
     </div>
 
     <div class="field">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
+      <label>Message</label>
+
+      <textarea name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
     </div>
 
-    <button type="submit" class="submit">Send Inquiry →</button>
-    <div class="form-status" id="formStatus">Thank you. We'll be in touch.</div>
+    <button type="submit" class="submit">
+      Send Inquiry →
+    </button>
+
   </form>
+
 </section>
 
 <footer>
+
   <div class="mark">Gold Kash Group</div>
-  <div>© MMXXVI · All Concepts Reserved</div>
+
+  <div>
+    © MMXXVI · All Concepts Reserved
+  </div>
+
 </footer>
 
 <script>
-(function() {
-  const container = document.getElementById('logoContainer');
-  const spinner = document.getElementById('logoSpinner');
 
-  let rotX = 0;
-  let rotY = 0;
-  let velX = 0;
-  let velY = 0;
-  let isDragging = false;
-  let lastX = 0;
-  let lastY = 0;
-  let idleSpin = 0.25;
+const container = document.getElementById('logoContainer');
+const spinner = document.getElementById('logoSpinner');
 
-  let mxTarget = 0;
-  let myTarget = 0;
-  let mx = 0;
-  let my = 0;
+let rotX = 0;
+let rotY = 0;
 
-  function applyTransform() {
-    const parallaxX = isDragging ? 0 : my * 6;
-    const parallaxY = isDragging ? 0 : mx * 6;
+let velX = 0;
+let velY = 0;
 
-    spinner.style.transform =
-      'rotateY(' + (rotY + parallaxY) + 'deg) rotateX(' + (rotX + parallaxX) + 'deg)';
+let isDragging = false;
+
+let lastX = 0;
+let lastY = 0;
+
+container.addEventListener('pointerdown', (e) => {
+  isDragging = true;
+
+  container.classList.add('dragging');
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+
+window.addEventListener('pointerup', () => {
+  isDragging = false;
+  container.classList.remove('dragging');
+});
+
+window.addEventListener('pointermove', (e) => {
+
+  if (!isDragging) return;
+
+  const dx = e.clientX - lastX;
+  const dy = e.clientY - lastY;
+
+  rotY += dx * 0.5;
+  rotX -= dy * 0.5;
+
+  velY = dx * 0.2;
+  velX = -dy * 0.2;
+
+  lastX = e.clientX;
+  lastY = e.clientY;
+});
+
+function animate() {
+
+  if (!isDragging) {
+    rotY += velY;
+    rotX += velX;
+
+    velY *= 0.96;
+    velX *= 0.96;
+
+    rotY += 0.12;
   }
 
-  container.addEventListener('pointerdown', function(e) {
-    isDragging = true;
-    container.classList.add('dragging');
-    lastX = e.clientX;
-    lastY = e.clientY;
-    velX = 0;
-    velY = 0;
-    try { container.setPointerCapture(e.pointerId); } catch (err) {}
-  });
+  spinner.style.transform =
+    `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
 
-  container.addEventListener('pointermove', function(e) {
-    if (!isDragging) return;
+  requestAnimationFrame(animate);
+}
 
-    const dx = e.clientX - lastX;
-    const dy = e.clientY - lastY;
+animate();
 
-    rotY += dx * 0.5;
-    rotX -= dy * 0.5;
-    rotX = Math.max(-70, Math.min(70, rotX));
-
-    velY = dx * 0.5;
-    velX = -dy * 0.5;
-
-    lastX = e.clientX;
-    lastY = e.clientY;
-  });
-
-  function endDrag(e) {
-    if (!isDragging) return;
-    isDragging = false;
-    container.classList.remove('dragging');
-    try { container.releasePointerCapture(e.pointerId); } catch (err) {}
-  }
-
-  container.addEventListener('pointerup', endDrag);
-  container.addEventListener('pointercancel', endDrag);
-  container.addEventListener('pointerleave', endDrag);
-
-  window.addEventListener('mousemove', function(e) {
-    mxTarget = e.clientX / window.innerWidth - 0.5;
-    myTarget = e.clientY / window.innerHeight - 0.5;
-  });
-
-  function loop() {
-    mx += (mxTarget - mx) * 0.06;
-    my += (myTarget - my) * 0.06;
-
-    if (!isDragging) {
-      rotY += velY;
-      rotX += velX;
-
-      velY *= 0.96;
-      velX *= 0.96;
-      rotX *= 0.985;
-
-      if (Math.abs(velY) < 0.05) {
-        rotY += idleSpin;
-      }
-    }
-
-    applyTransform();
-    requestAnimationFrame(loop);
-  }
-
-  loop();
-
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('.reveal').forEach(function(el, i) {
-    el.style.transitionDelay = ((i % 4) * 0.08) + 's';
-    observer.observe(el);
-  });
-
-  const form = document.getElementById('contactForm');
-  const status = document.getElementById('formStatus');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString()
-    })
-    .then(function() {
-      status.textContent = "Thank you. We'll be in touch.";
-      status.classList.add('visible');
-      form.reset();
-    })
-    .catch(function() {
-      status.textContent = 'Something went wrong. Please email hello@goldkashgroup.com directly.';
-      status.classList.add('visible');
-    });
-  });
-})();
 </script>
 
 </body>
