@@ -16,12 +16,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-
 :root {
-  --bg-deep: #050302;
   --gold: #c9982f;
   --gold-bright: #f6dc8b;
-  --gold-glow: rgba(244,210,122,0.45);
   --ink: #f5e9cc;
   --ink-dim: #a89366;
   --rule: rgba(201,152,47,0.22);
@@ -33,35 +30,27 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background:
     radial-gradient(circle at top, rgba(201,152,47,0.12), transparent 40%),
     linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
-
   color: var(--ink);
   font-family: 'Inter Tight', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* NAV */
-
 .topbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 26px 42px;
-
   z-index: 100;
 }
 
@@ -76,7 +65,6 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -89,93 +77,67 @@ body {
   border-radius: 50%;
   background: var(--gold-bright);
   box-shadow: 0 0 10px var(--gold-bright);
+  animation: pulse 2s ease-in-out infinite;
 }
 
-/* HERO */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
 
 .hero {
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding: 120px 24px 60px;
-
   position: relative;
 }
 
 .hero::before {
   content: '';
-
   position: absolute;
   width: 700px;
   height: 700px;
-
   background: radial-gradient(circle, rgba(244,210,122,0.20) 0%, transparent 70%);
-
   filter: blur(40px);
-
   pointer-events: none;
 }
-
-/* LOGO */
 
 .logo-container {
   width: min(60vw, 520px);
   aspect-ratio: 1;
-
   position: relative;
-
   perspective: 1600px;
-
   cursor: grab;
   z-index: 2;
+  touch-action: none;
+  user-select: none;
+  animation: coinFloat 6s ease-in-out infinite;
 }
 
-.logo-container.dragging {
-  cursor: grabbing;
+.logo-container.dragging { cursor: grabbing; }
+
+@keyframes coinFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
 }
 
-/* OUTER wrapper: handles the floating motion only */
-.logo-float {
-  width: 100%;
-  height: 100%;
-
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%,100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-/* INNER spinner: JS controls this transform — no CSS animation conflicts */
 .logo-spinner {
   width: 100%;
   height: 100%;
-
   position: relative;
-
   transform-style: preserve-3d;
-
   will-change: transform;
 }
 
 .logo-face {
   position: absolute;
   inset: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
@@ -189,25 +151,19 @@ body {
   height: 100%;
   object-fit: contain;
   pointer-events: none;
-
   filter:
     drop-shadow(0 0 25px rgba(244,210,122,0.45))
     drop-shadow(0 20px 50px rgba(0,0,0,0.7));
 }
 
-/* HINT */
-
 .coin-hint {
   margin-top: 36px;
-
   display: flex;
   gap: 12px;
   align-items: center;
-
   font-size: 10px;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-
   color: var(--ink-dim);
 }
 
@@ -219,15 +175,10 @@ body {
   text-transform: none;
 }
 
-/* MANTRA */
-
 .mantra {
   max-width: 1100px;
-
   margin: 0 auto;
-
   padding: 120px 24px 180px;
-
   text-align: center;
 }
 
@@ -236,13 +187,10 @@ body {
   align-items: center;
   justify-content: center;
   gap: 18px;
-
   margin-bottom: 50px;
-
   font-size: 10px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-
   color: var(--gold);
 }
 
@@ -254,16 +202,13 @@ body {
 
 .mantra-headline {
   font-family: 'Playfair Display', serif;
-
   font-size: clamp(42px, 7vw, 96px);
   line-height: 1.04;
-
   margin-bottom: 60px;
 }
 
 .mantra-headline em {
   font-style: italic;
-
   background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -271,13 +216,9 @@ body {
 
 .mantra-body {
   max-width: 54ch;
-
   margin: 0 auto;
-
   color: var(--ink-dim);
-
   font-family: 'Playfair Display', serif;
-
   font-size: clamp(20px, 2vw, 28px);
   line-height: 1.6;
 }
@@ -287,48 +228,34 @@ body {
   font-style: italic;
 }
 
-/* CONTACT */
-
 .contact {
   max-width: 760px;
-
   margin: 0 auto;
-
   padding: 100px 24px 140px;
 }
 
 .contact-eyebrow {
   text-align: center;
-
   color: var(--gold);
-
   font-size: 10px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-
   margin-bottom: 20px;
 }
 
 .contact-title {
   text-align: center;
-
   font-family: 'Playfair Display', serif;
   font-style: italic;
-
   font-size: clamp(40px, 6vw, 72px);
-
   margin-bottom: 16px;
 }
 
 .contact-sub {
   text-align: center;
-
   color: var(--ink-dim);
-
   max-width: 42ch;
-
   margin: 0 auto 60px;
-
   line-height: 1.6;
 }
 
@@ -345,11 +272,8 @@ form {
 
 .field label {
   display: block;
-
   margin-bottom: 12px;
-
   color: var(--gold);
-
   font-size: 9px;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -359,18 +283,12 @@ form {
 .field textarea,
 .field select {
   width: 100%;
-
   background: transparent;
-
   border: none;
   border-bottom: 1px solid var(--rule);
-
   padding: 12px 0;
-
   color: var(--ink);
-
   outline: none;
-
   font-family: 'Playfair Display', serif;
   font-size: 18px;
 }
@@ -378,7 +296,6 @@ form {
 .field textarea {
   min-height: 120px;
   resize: vertical;
-
   font-family: 'Inter Tight', sans-serif;
   font-size: 15px;
   line-height: 1.6;
@@ -404,25 +321,16 @@ form {
   background: #140b05;
 }
 
-/* BUTTON */
-
 .submit {
   margin-top: 18px;
-
   background: transparent;
-
   border: 1px solid var(--gold);
-
   color: var(--gold-bright);
-
   padding: 20px 40px;
-
   font-size: 11px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-
   cursor: pointer;
-
   transition: all 0.35s ease;
 }
 
@@ -431,60 +339,32 @@ form {
   color: #080403;
 }
 
-/* FOOTER */
-
 footer {
   border-top: 1px solid var(--rule);
-
   padding: 40px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   color: var(--ink-dim);
-
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
 
-footer .mark {
-  font-size: 15px;
-}
-
-/* MOBILE */
+footer .mark { font-size: 15px; }
 
 @media (max-width: 768px) {
-
-  .topbar {
-    padding: 18px 20px;
-  }
-
-  .mark {
-    font-size: 14px;
-  }
-
-  .right {
-    font-size: 8px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
+  .topbar { padding: 18px 20px; }
+  .mark { font-size: 14px; }
+  .right { font-size: 8px; }
+  .form-row { grid-template-columns: 1fr; }
   footer {
     flex-direction: column;
     gap: 14px;
     text-align: center;
   }
-
-  .logo-container {
-    width: min(82vw, 420px);
-  }
-
+  .logo-container { width: min(82vw, 420px); }
 }
-
 </style>
 </head>
 
@@ -492,7 +372,6 @@ footer .mark {
 
 <div class="topbar">
   <div class="mark">Gold Kash Group</div>
-
   <div class="right">
     <span class="dot"></span>
     <span>EST. MMXXVI</span>
@@ -500,36 +379,24 @@ footer .mark {
 </div>
 
 <section class="hero">
-
   <div class="logo-container" id="logoContainer">
-
-    <div class="logo-float">
-
-      <div class="logo-spinner" id="logoSpinner">
-
-        <div class="logo-face front">
-          <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
-        </div>
-
-        <div class="logo-face back">
-          <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
-        </div>
-
+    <div class="logo-spinner" id="logoSpinner">
+      <div class="logo-face front">
+        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
       </div>
-
+      <div class="logo-face back">
+        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
+      </div>
     </div>
-
   </div>
 
   <div class="coin-hint">
     <span>Drag</span>
     <span>give it a flick</span>
   </div>
-
 </section>
 
 <section class="mantra">
-
   <div class="mantra-eyebrow">
     <div class="line"></div>
     <span>Our Mantra</span>
@@ -543,11 +410,9 @@ footer .mark {
   <p class="mantra-body">
     By applying filmmaking and theme park design techniques to IRL experiences, we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em> We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
   </p>
-
 </section>
 
 <section class="contact">
-
   <div class="contact-eyebrow">Private Inquiries</div>
 
   <h2 class="contact-title">
@@ -559,11 +424,9 @@ footer .mark {
   </p>
 
   <form name="contact" method="POST" data-netlify="true">
-
     <input type="hidden" name="form-name" value="contact">
 
     <div class="form-row">
-
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Your name" required>
@@ -573,11 +436,9 @@ footer .mark {
         <label>Email</label>
         <input type="email" name="email" placeholder="you@example.com" required>
       </div>
-
     </div>
 
     <div class="form-row">
-
       <div class="field">
         <label>Company</label>
         <input type="text" name="company" placeholder="Optional">
@@ -585,7 +446,6 @@ footer .mark {
 
       <div class="field">
         <label>Inquiry Type</label>
-
         <select name="reason" required>
           <option value="">Select one</option>
           <option>Development Partnership</option>
@@ -595,128 +455,103 @@ footer .mark {
           <option>Other</option>
         </select>
       </div>
-
     </div>
 
     <div class="field">
       <label>Message</label>
-
       <textarea name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
     </div>
 
     <button type="submit" class="submit">
       Send Inquiry →
     </button>
-
   </form>
-
 </section>
 
 <footer>
-
   <div class="mark">Gold Kash Group</div>
-
-  <div>
-    © MMXXVI · All Concepts Reserved
-  </div>
-
+  <div>© MMXXVI · All Concepts Reserved</div>
 </footer>
 
 <script>
-
 const container = document.getElementById('logoContainer');
 const spinner = document.getElementById('logoSpinner');
 
 let rotX = 0;
 let rotY = 0;
-
 let velX = 0;
 let velY = 0;
-
 let isDragging = false;
-
 let lastX = 0;
 let lastY = 0;
 
-container.addEventListener('pointerdown', (e) => {
+function startDrag(e) {
   isDragging = true;
   container.classList.add('dragging');
+
   lastX = e.clientX;
   lastY = e.clientY;
+
   velX = 0;
   velY = 0;
-  try { container.setPointerCapture(e.pointerId); } catch (err) {}
-});
 
-window.addEventListener('pointerup', () => {
-  isDragging = false;
-  container.classList.remove('dragging');
-});
+  try {
+    container.setPointerCapture(e.pointerId);
+  } catch (err) {}
+}
 
-window.addEventListener('pointercancel', () => {
-  isDragging = false;
-  container.classList.remove('dragging');
-});
-
-window.addEventListener('pointermove', (e) => {
-
+function moveDrag(e) {
   if (!isDragging) return;
 
   const dx = e.clientX - lastX;
   const dy = e.clientY - lastY;
 
-  rotY += dx * 0.5;
-  rotX -= dy * 0.5;
+  rotY += dx * 0.65;
+  rotX -= dy * 0.45;
 
-  rotX = Math.max(-70, Math.min(70, rotX));
+  rotX = Math.max(-65, Math.min(65, rotX));
 
-  velY = dx * 0.5;
-  velX = -dy * 0.5;
+  velY = dx * 0.45;
+  velX = -dy * 0.30;
 
   lastX = e.clientX;
   lastY = e.clientY;
-});
-
-// Initial flourish spin
-rotY = -720;
-const flourishStart = performance.now();
-function flourish() {
-  const t = (performance.now() - flourishStart) / 1800;
-  if (t < 1) {
-    const eased = 1 - Math.pow(1 - t, 4);
-    rotY = -720 + eased * 720;
-    requestAnimationFrame(flourish);
-  } else {
-    rotY = 0;
-  }
 }
-flourish();
+
+function endDrag(e) {
+  if (!isDragging) return;
+
+  isDragging = false;
+  container.classList.remove('dragging');
+
+  try {
+    container.releasePointerCapture(e.pointerId);
+  } catch (err) {}
+}
+
+container.addEventListener('pointerdown', startDrag);
+container.addEventListener('pointermove', moveDrag);
+container.addEventListener('pointerup', endDrag);
+container.addEventListener('pointercancel', endDrag);
 
 function animate() {
-
   if (!isDragging) {
+    rotY += 0.28;
     rotY += velY;
     rotX += velX;
 
-    velY *= 0.96;
-    velX *= 0.96;
+    velY *= 0.94;
+    velX *= 0.94;
 
-    rotX *= 0.985;
-
-    // Gentle idle spin when at rest
-    if (Math.abs(velY) < 0.05) {
-      rotY += 0.25;
-    }
+    rotX *= 0.98;
   }
 
-  spinner.style.transform =
-    `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
+  spinner.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
 
   requestAnimationFrame(animate);
 }
 
 animate();
-
 </script>
 
 </body>
