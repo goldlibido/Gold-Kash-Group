@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
@@ -76,17 +76,24 @@ body {
 }
 
 .mantra-headline {
-  font-family: 'Marcellus SC', serif;
-  font-size: clamp(42px, 7vw, 94px);
-  line-height: 1.04;
-  margin-bottom: 38px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+  font-family: 'Cormorant SC', serif;
+  font-size: clamp(46px, 7vw, 96px);
+  line-height: 1.02;
+  margin-bottom: 42px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 .mantra-headline em {
   font-style: normal;
-  background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
+
+  background: linear-gradient(
+    135deg,
+    #f6dc8b 0%,
+    #c9982f 50%,
+    #f6dc8b 100%
+  );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -101,7 +108,7 @@ body {
 }
 
 .mantra-body p {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 .mantra-body p:last-child {
@@ -123,22 +130,32 @@ body {
 
 .contact-eyebrow {
   text-align: center;
+
   color: var(--gold);
-  font-family: 'Marcellus SC', serif;
-  font-size: 10px;
+
+  font-family: 'Cormorant SC', serif;
+
+  font-size: 11px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   margin-bottom: 20px;
 }
 
 .contact-title {
   text-align: center;
-  font-family: 'Marcellus SC', serif;
-  font-size: clamp(40px, 6vw, 72px);
+
+  font-family: 'Cormorant SC', serif;
+
+  font-size: clamp(44px, 6vw, 74px);
+
   margin-bottom: 16px;
-  font-weight: 400;
+
+  font-weight: 500;
+
   color: var(--ink);
-  letter-spacing: 0.02em;
+
+  letter-spacing: 0.03em;
 }
 
 .contact-title em {
@@ -148,9 +165,13 @@ body {
 
 .contact-sub {
   text-align: center;
+
   color: var(--ink-dim);
+
   max-width: 42ch;
+
   margin: 0 auto 60px;
+
   line-height: 1.6;
 }
 
@@ -169,10 +190,14 @@ form {
 
 .field label {
   display: block;
+
   margin-bottom: 12px;
+
   color: var(--gold);
-  font-family: 'Marcellus SC', serif;
-  font-size: 9px;
+
+  font-family: 'Cormorant SC', serif;
+
+  font-size: 10px;
   letter-spacing: 0.38em;
   text-transform: uppercase;
 }
@@ -181,21 +206,32 @@ form {
 .field textarea,
 .field select {
   width: 100%;
+
   background: transparent;
+
   border: none;
   border-bottom: 1px solid var(--rule);
+
   padding: 12px 0;
+
   color: var(--ink);
+
   outline: none;
+
   font-family: 'Playfair Display', serif;
+
   font-size: 18px;
 }
 
 .field textarea {
   min-height: 120px;
+
   resize: vertical;
+
   font-family: 'Inter Tight', sans-serif;
+
   font-size: 15px;
+
   line-height: 1.6;
 }
 
@@ -223,15 +259,23 @@ form {
 
 .submit {
   margin-top: 18px;
+
   background: transparent;
+
   border: 1px solid var(--gold);
+
   color: var(--gold-bright);
+
   padding: 20px 40px;
-  font-family: 'Marcellus SC', serif;
-  font-size: 11px;
+
+  font-family: 'Cormorant SC', serif;
+
+  font-size: 12px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
+
   cursor: pointer;
+
   transition: all 0.35s ease;
 }
 
@@ -244,11 +288,16 @@ form {
 
 footer {
   border-top: 1px solid var(--rule);
+
   padding: 40px;
+
   text-align: center;
+
   color: var(--ink-dim);
-  font-family: 'Marcellus SC', serif;
-  font-size: 10px;
+
+  font-family: 'Cormorant SC', serif;
+
+  font-size: 11px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
@@ -286,7 +335,13 @@ footer {
 
 <section class="hero">
 
-  <img class="logo" src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false" oncontextmenu="return false;">
+  <img
+    class="logo"
+    src="IMG_3254 (1).png"
+    alt="Gold Kash Group"
+    draggable="false"
+    oncontextmenu="return false;"
+  >
 
 </section>
 
@@ -297,6 +352,7 @@ footer {
   </h1>
 
   <div class="mantra-body">
+
     <p>
       By applying filmmaking and theme park design techniques to IRL experiences we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em>
     </p>
@@ -304,6 +360,7 @@ footer {
     <p>
       We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
     </p>
+
   </div>
 
 </section>
@@ -368,7 +425,11 @@ footer {
 
       <label>Message</label>
 
-      <textarea name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
+      <textarea
+        name="message"
+        placeholder="Tell us about your project, location, or idea."
+        required
+      ></textarea>
 
     </div>
 
