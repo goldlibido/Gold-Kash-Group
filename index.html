@@ -138,13 +138,10 @@ body {
   cursor: grabbing;
 }
 
-.logo-spinner {
+/* OUTER wrapper: handles the floating motion only */
+.logo-float {
   width: 100%;
   height: 100%;
-
-  position: relative;
-
-  transform-style: preserve-3d;
 
   animation: float 6s ease-in-out infinite;
 }
@@ -159,6 +156,18 @@ body {
   }
 }
 
+/* INNER spinner: JS controls this transform — no CSS animation conflicts */
+.logo-spinner {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  transform-style: preserve-3d;
+
+  will-change: transform;
+}
+
 .logo-face {
   position: absolute;
   inset: 0;
@@ -168,6 +177,7 @@ body {
   justify-content: center;
 
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .logo-face.back {
@@ -178,6 +188,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  pointer-events: none;
 
   filter:
     drop-shadow(0 0 25px rgba(244,210,122,0.45))
@@ -492,14 +503,18 @@ footer .mark {
 
   <div class="logo-container" id="logoContainer">
 
-    <div class="logo-spinner" id="logoSpinner">
+    <div class="logo-float">
 
-      <div class="logo-face front">
-        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
-      </div>
+      <div class="logo-spinner" id="logoSpinner">
 
-      <div class="logo-face back">
-        <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
+        <div class="logo-face front">
+          <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
+        </div>
+
+        <div class="logo-face back">
+          <img src="IMG_3254 (1).png" alt="Gold Kash Group" draggable="false">
+        </div>
+
       </div>
 
     </div>
@@ -625,14 +640,20 @@ let lastY = 0;
 
 container.addEventListener('pointerdown', (e) => {
   isDragging = true;
-
   container.classList.add('dragging');
-
   lastX = e.clientX;
   lastY = e.clientY;
+  velX = 0;
+  velY = 0;
+  try { container.setPointerCapture(e.pointerId); } catch (err) {}
 });
 
 window.addEventListener('pointerup', () => {
+  isDragging = false;
+  container.classList.remove('dragging');
+});
+
+window.addEventListener('pointercancel', () => {
   isDragging = false;
   container.classList.remove('dragging');
 });
@@ -647,12 +668,29 @@ window.addEventListener('pointermove', (e) => {
   rotY += dx * 0.5;
   rotX -= dy * 0.5;
 
-  velY = dx * 0.2;
-  velX = -dy * 0.2;
+  rotX = Math.max(-70, Math.min(70, rotX));
+
+  velY = dx * 0.5;
+  velX = -dy * 0.5;
 
   lastX = e.clientX;
   lastY = e.clientY;
 });
+
+// Initial flourish spin
+rotY = -720;
+const flourishStart = performance.now();
+function flourish() {
+  const t = (performance.now() - flourishStart) / 1800;
+  if (t < 1) {
+    const eased = 1 - Math.pow(1 - t, 4);
+    rotY = -720 + eased * 720;
+    requestAnimationFrame(flourish);
+  } else {
+    rotY = 0;
+  }
+}
+flourish();
 
 function animate() {
 
@@ -663,7 +701,12 @@ function animate() {
     velY *= 0.96;
     velX *= 0.96;
 
-    rotY += 0.12;
+    rotX *= 0.985;
+
+    // Gentle idle spin when at rest
+    if (Math.abs(velY) < 0.05) {
+      rotY += 0.25;
+    }
   }
 
   spinner.style.transform =
