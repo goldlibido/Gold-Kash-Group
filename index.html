@@ -46,7 +46,7 @@ body {
 
 .hero {
   min-height: auto;
-  padding: 70px 24px 20px;
+  padding: 55px 24px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +71,7 @@ body {
 .mantra {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 60px 24px 40px;
+  padding: 50px 24px 70px;
   text-align: center;
 }
 
@@ -125,7 +125,7 @@ body {
 .contact {
   max-width: 760px;
   margin: 0 auto;
-  padding: 10px 24px 140px;
+  padding: 30px 24px 140px;
 }
 
 .contact-eyebrow {
@@ -265,7 +265,7 @@ footer {
 @media (max-width: 768px) {
 
   .hero {
-    padding: 55px 24px 15px;
+    padding: 45px 24px 5px;
   }
 
   .logo {
@@ -273,11 +273,11 @@ footer {
   }
 
   .mantra {
-    padding: 40px 24px 30px;
+    padding: 40px 24px 55px;
   }
 
   .contact {
-    padding: 0px 24px 100px;
+    padding: 20px 24px 100px;
   }
 
   .form-row {
@@ -341,9 +341,21 @@ footer {
     For developers, press, partnerships, and prospective licensees.
   </p>
 
-  <form name="contact" method="POST" data-netlify="true">
+  <form
+    name="contact"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+  >
 
     <input type="hidden" name="form-name" value="contact">
+
+    <p hidden>
+      <label>
+        Don’t fill this out:
+        <input name="bot-field">
+      </label>
+    </p>
 
     <div class="form-row">
 
@@ -404,7 +416,7 @@ footer {
 </section>
 
 <footer>
-  Gold Kash Group © All Rights Reserved
+  MMXXVI © Gold Kash Group
 </footer>
 
 </body>
