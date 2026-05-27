@@ -2,421 +2,370 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>Gold Kash Group</title>
-
-<meta name="description" content="We make hospitality cinematic. Gold Kash Group builds immersive restaurants and nightlife venues using filmmaking and theme park design techniques." />
-
-<link rel="icon" href="IMG_3254 (1).png" type="image/png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0a0604" />
+<title>Champagne Showers — A Ritual of Excess</title>
+<meta name="description" content="An F1-inspired cinematic dining experience. Bader Field, Atlantic City. A Gold Kash Group concept." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
-
-<style>
-
-:root {
-  --gold: #c9982f;
-  --gold-bright: #f6dc8b;
-  --ink: #f5e9cc;
-  --ink-dim: #a89366;
-  --rule: rgba(201,152,47,0.22);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background:
-    radial-gradient(circle at top, rgba(201,152,47,0.14), transparent 42%),
-    linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
-
-  color: var(--ink);
-  font-family: 'Inter Tight', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* HERO */
-
-.hero {
-  min-height: auto;
-  padding: 55px 24px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.logo {
-  width: min(72vw, 420px);
-  display: block;
-
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-
-  filter:
-    drop-shadow(0 20px 50px rgba(0,0,0,0.7));
-}
-
-/* MANTRA */
-
-.mantra {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 50px 24px 70px;
-  text-align: center;
-}
-
-.mantra-headline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(46px, 7vw, 94px);
-  line-height: 1.08;
-  margin-bottom: 42px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.mantra-headline em {
-  font-style: normal;
-
-  background: linear-gradient(
-    135deg,
-    #f6dc8b 0%,
-    #c9982f 50%,
-    #f6dc8b 100%
-  );
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.mantra-body {
-  max-width: 58ch;
-  margin: 0 auto;
-  color: var(--ink-dim);
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(20px, 2vw, 28px);
-  line-height: 1.6;
-}
-
-.mantra-body p {
-  margin-bottom: 26px;
-}
-
-.mantra-body p:last-child {
-  margin-bottom: 0;
-}
-
-.mantra-body em {
-  color: var(--gold-bright);
-  font-style: italic;
-}
-
-/* CONTACT */
-
-.contact {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 30px 24px 140px;
-}
-
-.contact-eyebrow {
-  text-align: center;
-  color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.contact-title {
-  text-align: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(44px, 6vw, 74px);
-  margin-bottom: 16px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.04em;
-}
-
-.contact-title em {
-  font-style: normal;
-  color: var(--ink);
-}
-
-.contact-sub {
-  text-align: center;
-  color: var(--ink-dim);
-  max-width: 42ch;
-  margin: 0 auto 60px;
-  line-height: 1.6;
-}
-
-/* FORM */
-
-form {
-  display: grid;
-  gap: 28px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
-
-.field label {
-  display: block;
-  margin-bottom: 12px;
-  color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  letter-spacing: 0.38em;
-  text-transform: uppercase;
-}
-
-.field input,
-.field textarea,
-.field select {
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--rule);
-  padding: 12px 0;
-  color: var(--ink);
-  outline: none;
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-}
-
-.field textarea {
-  min-height: 120px;
-  resize: vertical;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: rgba(245,233,204,0.4);
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus {
-  border-bottom-color: var(--gold-bright);
-}
-
-.field select {
-  background: transparent;
-  color: var(--ink);
-}
-
-.field option {
-  background: #140b05;
-}
-
-/* BUTTON */
-
-.submit {
-  margin-top: 18px;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold-bright);
-  padding: 20px 40px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.35s ease;
-}
-
-.submit:hover {
-  background: var(--gold);
-  color: #080403;
-}
-
-/* FOOTER */
-
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 40px;
-  text-align: center;
-  color: var(--ink-dim);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-}
-
-/* MOBILE */
-
-@media (max-width: 768px) {
-
-  .hero {
-    padding: 45px 24px 5px;
-  }
-
-  .logo {
-    width: min(84vw, 360px);
-  }
-
-  .mantra {
-    padding: 40px 24px 55px;
-  }
-
-  .contact {
-    padding: 20px 24px 100px;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  footer {
-    padding: 34px 20px;
-  }
-
-}
-
-</style>
+<link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<section class="hero">
-
-  <img
-    class="logo"
-    src="IMG_3254 (1).png"
-    alt="Gold Kash Group"
-    draggable="false"
-    oncontextmenu="return false;"
-  >
-
-</section>
-
-<section class="mantra">
-
-  <h1 class="mantra-headline">
-    We Make Hospitality <em>Cinematic.</em>
-  </h1>
-
-  <div class="mantra-body">
-
-    <p>
-      By applying filmmaking and theme park design techniques to IRL experiences we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em>
-    </p>
-
-    <p>
-      We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
-    </p>
-
+<!-- =============================================
+     COLD OPEN — studio logo card before everything
+     ============================================= -->
+<div class="cold-open" id="coldOpen">
+  <div class="studio-mark">
+    <span class="studio-line">A</span>
+    <span class="studio-name">GOLD KASH</span>
+    <span class="studio-line">PRESENTATION</span>
   </div>
+</div>
 
-</section>
-
-<section class="contact">
-
-  <div class="contact-eyebrow">
-    Private Inquiries
+<!-- LOADING VEIL -->
+<div class="veil" id="veil">
+  <div class="veil-mark">
+    <svg viewBox="0 0 100 100" class="veil-spinner" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" />
+    </svg>
+    <span class="veil-text">Sealing the room</span>
   </div>
+</div>
 
-  <h2 class="contact-title">
-    Let's <em>Talk.</em>
-  </h2>
+<!-- =============================================
+     CINEMATIC OVERLAY LAYERS (above everything)
+     ============================================= -->
 
-  <p class="contact-sub">
-    For developers, press, partnerships, and prospective licensees.
-  </p>
+<!-- Letterbox bars (top & bottom) -->
+<div class="letterbox top" id="lbTop"></div>
+<div class="letterbox bottom" id="lbBottom"></div>
 
-  <form
-    name="contact"
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot="bot-field"
-  >
+<!-- Film grain — animated noise overlay -->
+<div class="grain" aria-hidden="true"></div>
 
-    <input type="hidden" name="form-name" value="contact">
+<!-- Anamorphic flare layer (turned on per-scene via JS) -->
+<div class="flare-layer" id="flareLayer" aria-hidden="true"></div>
 
-    <p hidden>
-      <label>
-        Don’t fill this out:
-        <input name="bot-field">
-      </label>
-    </p>
+<!-- Act title card (flashes between sections) -->
+<div class="act-card" id="actCard">
+  <div class="act-card-inner">
+    <span class="act-card-num"></span>
+    <span class="act-card-rule"></span>
+    <span class="act-card-name"></span>
+  </div>
+</div>
 
-    <div class="form-row">
+<!-- =============================================
+     HUD CHROME
+     ============================================= -->
 
-      <div class="field">
-        <label>Name</label>
-        <input type="text" name="name" placeholder="Your name" required>
-      </div>
+<div class="rail" id="rail" aria-hidden="true">
+  <div class="rail-fill" id="railFill"></div>
+  <div class="rail-ticks" id="railTicks"></div>
+</div>
 
-      <div class="field">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="you@example.com" required>
-      </div>
+<div class="chapter" id="chapter">
+  <span class="chapter-num">I</span>
+  <span class="chapter-name">The Seal</span>
+</div>
 
+<div class="brandmark">
+  <span class="brandmark-line">CHAMPAGNE SHOWERS</span>
+  <span class="brandmark-sub">Bader Field · Atlantic City</span>
+</div>
+
+<div class="hint" id="hint">
+  <span class="hint-line"></span>
+  <span class="hint-text">Scroll to descend</span>
+  <span class="hint-line"></span>
+</div>
+
+<!-- =============================================
+     THE CINEMATIC
+     ============================================= -->
+<main class="film" id="film">
+
+  <!-- ACT I · ARRIVAL -->
+
+  <!-- 0 :: SEAL -->
+  <section class="scene scene-seal" data-scene="0" data-act="1" data-chapter="I" data-title="The Seal" data-flare="warm">
+    <div class="scene-bg seal-bg">
+      <img src="images/00-seal.png" alt="Champagne Showers wax seal" class="seal-img" />
     </div>
-
-    <div class="form-row">
-
-      <div class="field">
-        <label>Company</label>
-        <input type="text" name="company" placeholder="Optional">
+    <div class="scene-overlay center">
+      <div class="opener">
+        <span class="opener-eyebrow">A Gold Kash Group Concept</span>
+        <h1 class="opener-title">Champagne<br/><em>Showers</em></h1>
+        <span class="opener-sub">A ritual of excess. Eleven courses, one podium, midnight.</span>
       </div>
+    </div>
+  </section>
 
-      <div class="field">
+  <!-- 1 :: DOOR -->
+  <section class="scene scene-door" data-scene="1" data-act="1" data-chapter="II" data-title="Arrival">
+    <div class="scene-bg ken">
+      <img src="images/01-door.jpeg" alt="Marble entrance with sealed door" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">II · Arrival</span>
+      <h2 class="cap-title">The door does not<br/>open for everyone.</h2>
+      <p class="cap-body">A sealed marble vestibule. The room beyond is rumor until you are inside it.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
 
-        <label>Inquiry Type</label>
+  <!-- 2 :: CHANDELIER ON BLACK (the match cut "before" frame) -->
+  <section class="scene scene-matchcut-before" data-scene="2" data-act="1" data-chapter="III" data-title="The Crown" data-flare="warm">
+    <div class="scene-bg matchcut-bg-before">
+      <img src="images/02-chandelier.png" alt="Coupe chandelier" class="matchcut-img matchcut-target" id="matchTarget1" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">III · The Crown</span>
+      <h2 class="cap-title">A hundred coupes,<br/>suspended.</h2>
+      <p class="cap-body">The first thing you look up at. Five tiers, hand-cut crystal, lit from within. A toast you can stand under.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
 
-        <select name="reason" required>
-          <option value="">Select one</option>
-          <option>Development Partnership</option>
-          <option>Concept Licensing</option>
-          <option>Press</option>
-          <option>Careers</option>
-          <option>Other</option>
-        </select>
+  <!-- 3 :: TUNNEL :: the match cut "after" frame -->
+  <section class="scene scene-matchcut-after" data-scene="3" data-act="1" data-chapter="IV" data-title="The Cellar" data-flare="warm">
+    <div class="scene-bg ken ken-zoom-strong">
+      <img src="images/03-cellar.jpeg" alt="Champagne cellar tunnel with coupe chandelier" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">IV · The Cellar</span>
+      <h2 class="cap-title">Every bottle has<br/>a name on it.</h2>
+      <p class="cap-body">A passage lined in members' reserves. Walk it slowly. Yours is in here somewhere.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
 
+  <!-- 4 :: BRASS LOUNGE -->
+  <section class="scene" data-scene="4" data-act="1" data-chapter="V" data-title="The Scales">
+    <div class="scene-bg ken">
+      <img src="images/04-brass-lounge.jpeg" alt="Brass scale lounge with banquette" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">V · The Scales</span>
+      <h2 class="cap-title">A quieter corner.</h2>
+      <p class="cap-body">Brass scales catch every candle. Velvet absorbs the conversation. The room is loud but here is not.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 5 :: BAR -->
+  <section class="scene" data-scene="5" data-act="1" data-chapter="VI" data-title="The Bar" data-flare="warm">
+    <div class="scene-bg ken">
+      <img src="images/05-bar.png" alt="Curved bar with Moët bottle pyramid" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">VI · The Bar</span>
+      <h2 class="cap-title">Forty seats.<br/>One pyramid.</h2>
+      <p class="cap-body">A brass-lit horseshoe. House Moët, vintage rooms, and a bartender who knows your year.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 6 :: BUBBLE BOOTH -->
+  <section class="scene" data-scene="6" data-act="1" data-chapter="VII" data-title="The Bubble">
+    <div class="scene-bg ken ken-slow">
+      <img src="images/06-bubble-booth.jpeg" alt="Booth under bubble glass chandelier" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">VII · The Bubble</span>
+      <h2 class="cap-title">Twenty-eight orbs.<br/>One booth.</h2>
+      <p class="cap-body">The room's most photographed table. Reserved by name, not by hour.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 7 :: MAIN FLOOR REVEAL -->
+  <section class="scene scene-reveal" data-scene="7" data-act="1" data-chapter="VIII" data-title="The Floor" data-flare="strong">
+    <div class="scene-bg ken">
+      <img src="images/07-main-floor.png" alt="Main dining floor with illuminated shower cube" />
+    </div>
+    <div class="scene-overlay top-center">
+      <span class="cap-eyebrow large">VIII</span>
+      <h2 class="cap-title big">The Floor.</h2>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 8 :: MAIN FLOOR ALT -->
+  <section class="scene" data-scene="8" data-act="1" data-chapter="IX" data-title="The Cube">
+    <div class="scene-bg ken ken-slow">
+      <img src="images/08-cube.png" alt="Shower cube from dining floor" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">IX · The Cube</span>
+      <h2 class="cap-title">Glass on four sides.<br/>One ritual inside.</h2>
+      <p class="cap-body">Champagne is sprayed at eleven. The cube contains it. The room remembers it.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- ACT II · THE APPROACH -->
+
+  <!-- 9 :: LOCKER ROOM -->
+  <section class="scene" data-scene="9" data-act="2" data-chapter="X" data-title="The Kit">
+    <div class="scene-bg ken">
+      <img src="images/09-locker.png" alt="Locker room with sponsored ponchos and slippers" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">X · The Kit</span>
+      <h2 class="cap-title">Suit up.</h2>
+      <p class="cap-body">Sponsored ponchos. Slippers. Towel service. Champagne on ice before the first course is poured.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 10 :: DRESSING HALL -->
+  <section class="scene" data-scene="10" data-act="2" data-chapter="XI" data-title="The Threshold">
+    <div class="scene-bg ken ken-zoom">
+      <img src="images/10-dressing-hall.png" alt="Hallway of dressing booths with velvet curtains" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">XI · The Threshold</span>
+      <h2 class="cap-title">Private rooms.<br/>Private rituals.</h2>
+      <p class="cap-body">Six dressing booths. Velvet behind every door. The bar is louder when you cannot hear it yet.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 11 :: BOOTH -->
+  <section class="scene" data-scene="11" data-act="2" data-chapter="XII" data-title="In Camera">
+    <div class="scene-bg ken">
+      <img src="images/11-booth.jpeg" alt="Single dressing booth interior" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">XII · In Camera</span>
+      <h2 class="cap-title">A room of one's own.</h2>
+      <p class="cap-body">Brushed brass. Quilted velvet. Two hangers and a long mirror. The last quiet moment of the night.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 12 :: WALKWAY -->
+  <section class="scene" data-scene="12" data-act="2" data-chapter="XIII" data-title="The Crossing" data-flare="warm">
+    <div class="scene-bg ken ken-zoom-strong">
+      <img src="images/12-walkway.png" alt="Elevated brass walkway returning to the shower cube" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">XIII · The Crossing</span>
+      <h2 class="cap-title">Suited up.<br/>The walk back is yours.</h2>
+      <p class="cap-body">The bridge lifts you above the floor. The room watches you return — kitted, ready, lit from below.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 13 :: DJ -->
+  <section class="scene" data-scene="13" data-act="2" data-chapter="XIV" data-title="The Pivot" data-flare="warm">
+    <div class="scene-bg ken">
+      <img src="images/13-dj.png" alt="DJ podium beneath the seal" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">XIV · The Pivot</span>
+      <h2 class="cap-title">Dinner ends.<br/>Something else begins.</h2>
+      <p class="cap-body">The room turns at eleven. Plates retire. The seal lights up. The DJ steps in.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- ACT III · THE RITUAL -->
+
+  <!-- 14 :: SUIT UP -->
+  <section class="scene" data-scene="14" data-act="3" data-chapter="XV" data-title="On Grid">
+    <div class="scene-bg ken">
+      <img src="images/14-suit-up.png" alt="Three guests in racing ponchos and goggles" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">XV · On Grid</span>
+      <h2 class="cap-title">The race is dinner.</h2>
+      <p class="cap-body">Goggles down. Bottles up. The cube is lit; the table is set.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 15 :: ROUND ONE -->
+  <section class="scene" data-scene="15" data-act="3" data-chapter="XVI" data-title="Round One">
+    <div class="scene-bg ken">
+      <img src="images/15-round-one.png" alt="Bottle service procession" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">XVI · Round One</span>
+      <h2 class="cap-title">The procession.</h2>
+      <p class="cap-body">Berets. Gloves. Dom. A round is announced; the room rises.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 16 :: CORK POP -->
+  <section class="scene" data-scene="16" data-act="3" data-chapter="XVII" data-title="The Pop">
+    <div class="scene-bg ken ken-zoom">
+      <img src="images/16-cork-pop.png" alt="Guests popping champagne at a brass pyramid target" />
+    </div>
+    <div class="scene-overlay bottom-right">
+      <span class="cap-eyebrow">XVII · The Pop</span>
+      <h2 class="cap-title">Aim. Pop.<br/>Knock it down.</h2>
+      <p class="cap-body">Brass cup pyramids on black marble. House rules. House champagne. No prize except the noise.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 17 :: BATHTUB -->
+  <section class="scene" data-scene="17" data-act="3" data-chapter="XVIII" data-title="The Bath" data-flare="warm">
+    <div class="scene-bg ken">
+      <img src="images/17-bathtub.jpeg" alt="Gold bathtub procession with guest of honor" />
+    </div>
+    <div class="scene-overlay bottom-left">
+      <span class="cap-eyebrow">XVIII · The Bath</span>
+      <h2 class="cap-title">For birthdays.<br/>For audacity.</h2>
+      <p class="cap-body">A solid brass tub. Four bearers. One guest of honor. The room parts and the bottles go up.</p>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 18 :: SPRAY :: climax -->
+  <section class="scene scene-climax" data-scene="18" data-act="3" data-chapter="XIX" data-title="The Spray" data-flare="strong">
+    <div class="scene-bg ken ken-zoom-strong">
+      <img src="images/18-spray.png" alt="Two guests spraying champagne inside the cube" />
+    </div>
+    <div class="scene-overlay top-center">
+      <span class="cap-eyebrow large">XIX</span>
+      <h2 class="cap-title big">Eleven o'clock.</h2>
+    </div>
+    <div class="vignette"></div>
+  </section>
+
+  <!-- 19 :: CLOSER -->
+  <section class="scene scene-close" data-scene="19" data-act="3" data-chapter="XX" data-title="Curtain">
+    <div class="scene-bg chandelier-bg">
+      <img src="images/19-chandelier-closer.png" alt="Coupe chandelier" class="chandelier-img" />
+    </div>
+    <div class="scene-overlay center">
+      <div class="closer">
+        <span class="closer-eyebrow">XX · Curtain</span>
+        <h2 class="closer-title">Until the last <em>coupe</em>.</h2>
+        <p class="closer-body">Champagne Showers opens at Bader Field, Atlantic City.<br/>A Gold Kash Group concept, in development with DEEM.</p>
+        <div class="cta-row">
+          <a href="#" class="cta cta-primary">Request Membership</a>
+          <a href="#" class="cta cta-ghost">Press &amp; Partnerships</a>
+        </div>
+        <div class="closer-meta">
+          <span>Gold Kash Group</span>
+          <span class="dot">·</span>
+          <span>goldkashgroup.com</span>
+        </div>
       </div>
-
     </div>
+  </section>
 
-    <div class="field">
+</main>
 
-      <label>Message</label>
-
-      <textarea
-        name="message"
-        placeholder="Tell us about your project, location, or idea."
-        required
-      ></textarea>
-
-    </div>
-
-    <button type="submit" class="submit">
-      Send Inquiry →
-    </button>
-
-  </form>
-
-</section>
-
-<footer>
-  © Gold Kash Group
-</footer>
-
+<script src="script.js"></script>
 </body>
 </html>
