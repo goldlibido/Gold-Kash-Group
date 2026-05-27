@@ -1,0 +1,349 @@
+/* ============================================
+   CHAMPAGNE SHOWERS · Silent Cinematic
+   Pure image descent · Gold Kash Group
+   ============================================ */
+
+:root {
+  --black: #0a0604;
+  --pitch: #050201;
+  --burgundy-deep: #210606;
+  --gold: #c9a25f;
+  --gold-bright: #e7c982;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cine: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --letterbox: 6vh;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: var(--pitch);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar { display: none; }
+
+img { max-width: 100%; display: block; }
+
+/* ============================================
+   COLD OPEN — silent black hold
+   ============================================ */
+.cold-open {
+  position: fixed; inset: 0;
+  z-index: 10000;
+  background: var(--pitch);
+  opacity: 1;
+  transition: opacity 1.6s var(--ease-cine);
+}
+.cold-open.gone {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 1.6s var(--ease-cine), visibility 0s 1.6s;
+}
+
+/* ============================================
+   LOADING VEIL — silent black
+   ============================================ */
+.veil {
+  position: fixed; inset: 0;
+  background: var(--pitch);
+  z-index: 9999;
+  transition: opacity 1.4s var(--ease-cine), visibility 1.4s var(--ease-cine);
+}
+.veil.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* ============================================
+   LETTERBOX BARS
+   ============================================ */
+.letterbox {
+  position: fixed; left: 0; right: 0;
+  height: 0;
+  background: #000;
+  z-index: 200;
+  pointer-events: none;
+  transition: height 1.4s var(--ease-cine);
+}
+.letterbox.top { top: 0; }
+.letterbox.bottom { bottom: 0; }
+.letterbox.cinema { height: var(--letterbox); }
+
+/* ============================================
+   FILM GRAIN
+   ============================================ */
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 150;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+  animation: grainShift 0.6s steps(6) infinite;
+}
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-5%, -3%); }
+  20%  { transform: translate(3%, 5%); }
+  30%  { transform: translate(-4%, 2%); }
+  40%  { transform: translate(6%, -4%); }
+  50%  { transform: translate(-2%, 6%); }
+  60%  { transform: translate(5%, -2%); }
+  70%  { transform: translate(-6%, 4%); }
+  80%  { transform: translate(3%, -5%); }
+  90%  { transform: translate(-3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ============================================
+   ANAMORPHIC FLARES
+   ============================================ */
+.flare-layer {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 1.8s var(--ease-cine);
+}
+.flare-layer.on { opacity: 1; }
+
+.flare-layer::before,
+.flare-layer::after {
+  content: "";
+  position: absolute;
+  left: -10%; right: -10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(231, 201, 130, 0.9) 50%, transparent 100%);
+  filter: blur(8px);
+  opacity: 0.7;
+}
+.flare-layer::before {
+  top: 38%;
+  box-shadow: 0 0 40px rgba(231, 201, 130, 0.4), 0 0 100px rgba(212, 177, 106, 0.25);
+  animation: flareDrift 12s var(--ease-cine) infinite alternate;
+}
+.flare-layer::after {
+  top: 62%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 220, 150, 0.5) 50%, transparent 100%);
+  filter: blur(14px);
+  animation: flareDrift 16s var(--ease-cine) infinite alternate-reverse;
+}
+.flare-layer.strong::before {
+  height: 2px;
+  filter: blur(10px);
+  box-shadow: 0 0 60px rgba(231, 201, 130, 0.6), 0 0 140px rgba(212, 177, 106, 0.35);
+}
+@keyframes flareDrift {
+  0%   { transform: translateX(-3%); opacity: 0.55; }
+  100% { transform: translateX(3%);  opacity: 0.85; }
+}
+
+/* ============================================
+   FILM & SCENES
+   ============================================ */
+.film { display: block; }
+
+.scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--pitch);
+}
+
+.scene-bg {
+  position: absolute; inset: 0;
+  z-index: 1;
+}
+.scene-bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Ken Burns motion */
+.ken img { animation: kenBurns 22s var(--ease-out) infinite alternate; transform-origin: center center; }
+.ken-slow img { animation-duration: 30s; }
+.ken-zoom img { animation: kenZoom 18s var(--ease-out) infinite alternate; }
+.ken-zoom-strong img { animation: kenZoomStrong 16s var(--ease-out) infinite alternate; }
+
+@keyframes kenBurns {
+  0%   { transform: scale(1.06) translate(-1%, 0.5%); }
+  100% { transform: scale(1.14) translate(1%, -0.5%); }
+}
+@keyframes kenZoom {
+  0%   { transform: scale(1.04); }
+  100% { transform: scale(1.18); }
+}
+@keyframes kenZoomStrong {
+  0%   { transform: scale(1.08); }
+  100% { transform: scale(1.28); }
+}
+
+/* Vignette */
+.vignette {
+  position: absolute; inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.5) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.45) 0%, transparent 18%, transparent 60%, rgba(0,0,0,0.75) 100%);
+}
+
+/* ============================================
+   SEAL (opening hero)
+   ============================================ */
+.seal-bg {
+  background:
+    radial-gradient(ellipse at center, rgba(60, 10, 10, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at center, var(--burgundy-deep) 0%, var(--pitch) 70%);
+  display: flex; align-items: center; justify-content: center;
+}
+.seal-img {
+  position: relative !important;
+  width: clamp(280px, 38vw, 520px);
+  height: auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 30px 80px rgba(0,0,0,0.7)) drop-shadow(0 0 60px rgba(201, 60, 60, 0.25));
+  animation: sealFloat 6s var(--ease-cine) infinite alternate;
+  inset: auto !important;
+}
+@keyframes sealFloat {
+  0%   { transform: translateY(-6px) rotate(-1.5deg); }
+  100% { transform: translateY(6px) rotate(1.5deg); }
+}
+
+.scene-seal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(201, 162, 95, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(60, 10, 10, 0.3) 0%, transparent 50%);
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* ============================================
+   MATCH CUT (chandelier on black → chandelier in tunnel)
+   ============================================ */
+.matchcut-bg-before {
+  background:
+    radial-gradient(ellipse at center 35%, rgba(60, 10, 10, 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse at center 35%, rgba(40, 25, 10, 0.4) 0%, transparent 70%),
+    var(--pitch);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 6vh;
+}
+.matchcut-img {
+  position: relative !important;
+  width: clamp(280px, 36vw, 480px);
+  height: auto !important;
+  object-fit: contain !important;
+  inset: auto !important;
+  filter: drop-shadow(0 0 80px rgba(231, 201, 130, 0.45)) drop-shadow(0 0 160px rgba(231, 201, 130, 0.2));
+  transform-origin: center top;
+  animation: chandelierGlowMatch 4.5s var(--ease-cine) infinite alternate;
+}
+@keyframes chandelierGlowMatch {
+  0%   { filter: drop-shadow(0 0 60px rgba(231, 201, 130, 0.35)) drop-shadow(0 0 140px rgba(231, 201, 130, 0.15)); }
+  100% { filter: drop-shadow(0 0 100px rgba(231, 201, 130, 0.55)) drop-shadow(0 0 200px rgba(231, 201, 130, 0.3)); }
+}
+
+.scene-matchcut-after .scene-bg img {
+  animation: matchcutBloom 1.6s var(--ease-cine) 1, kenZoomStrong 16s var(--ease-out) 1.6s infinite alternate;
+}
+@keyframes matchcutBloom {
+  0%   { filter: brightness(1.15) blur(2px); transform: scale(1.04); }
+  100% { filter: brightness(1) blur(0); transform: scale(1.08); }
+}
+.scene-matchcut-after::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: radial-gradient(ellipse at center 30%, transparent 0%, transparent 30%, rgba(0,0,0,0.7) 80%);
+  pointer-events: none;
+  opacity: 0;
+  animation: matchcutScrim 1.6s var(--ease-cine) forwards;
+}
+.scene-matchcut-after:not(.in-view)::before { animation: none; opacity: 0; }
+.scene-matchcut-after.in-view::before { animation: matchcutScrim 1.6s var(--ease-cine) forwards; }
+@keyframes matchcutScrim {
+  0%   { opacity: 1; }
+  60%  { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+/* ============================================
+   CLOSING CHANDELIER (final scene)
+   ============================================ */
+.chandelier-bg {
+  background:
+    radial-gradient(ellipse at center top, rgba(40, 25, 10, 0.6) 0%, transparent 60%),
+    var(--pitch);
+  display: flex; align-items: center; justify-content: center;
+}
+.chandelier-img {
+  position: relative !important;
+  width: clamp(320px, 38vw, 520px);
+  height: auto !important;
+  object-fit: contain !important;
+  inset: auto !important;
+  filter: drop-shadow(0 0 80px rgba(231, 201, 130, 0.45));
+  animation: chandelierGlow 4s var(--ease-cine) infinite alternate;
+}
+@keyframes chandelierGlow {
+  0%   { filter: drop-shadow(0 0 60px rgba(231, 201, 130, 0.3)); }
+  100% { filter: drop-shadow(0 0 110px rgba(231, 201, 130, 0.6)); }
+}
+
+/* Reveal/climax brightness lifts */
+.scene-reveal .vignette {
+  background:
+    radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.65) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 30%);
+}
+.scene-climax .scene-bg img {
+  filter: contrast(1.05) brightness(1.05) saturate(1.08);
+}
+
+/* ============================================
+   MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  :root { --letterbox: 4vh; }
+  .grain { opacity: 0.05; }
+  .seal-img { width: 70vw; }
+  .matchcut-img { width: 65vw; }
+  .chandelier-img { width: 70vw; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ken img, .ken-slow img, .ken-zoom img, .ken-zoom-strong img,
+  .seal-img, .chandelier-img, .matchcut-img,
+  .grain, .flare-layer::before, .flare-layer::after,
+  .scene-matchcut-after .scene-bg img {
+    animation: none !important;
+  }
+  body { scroll-behavior: auto; }
+}
