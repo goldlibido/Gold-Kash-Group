@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -11,6 +12,7 @@
 <link rel="icon" href="IMG_3254 (1).png" type="image/png">
 
 <style>
+
 :root {
   --gold: #c9982f;
   --gold-bright: #f6dc8b;
@@ -26,61 +28,154 @@
 }
 
 body {
+
   background:
     radial-gradient(circle at top, rgba(201,152,47,0.14), transparent 42%),
     linear-gradient(180deg, #0a0604 0%, #140b05 50%, #080403 100%);
+
   color: var(--ink);
+
   font-family: "Trajan Pro", "Cinzel", "Times New Roman", serif;
+
   min-height: 100vh;
+
   overflow-x: hidden;
+
   letter-spacing: 0.04em;
 }
 
+/* TOP NAV */
+
+.top-nav {
+
+  position: fixed;
+
+  top: 22px;
+  left: 22px;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.gk-link img {
+
+  width: 34px;
+
+  height: auto;
+
+  display: block;
+
+  transition: opacity 0.25s ease;
+}
+
+.gk-link:hover img {
+  opacity: 0.65;
+}
+
+.prop-link {
+
+  color: var(--ink);
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  letter-spacing: 0.24em;
+
+  text-transform: uppercase;
+
+  transition: opacity 0.25s ease;
+}
+
+.prop-link:hover {
+  opacity: 0.65;
+}
+
+/* HERO */
+
 .hero {
+
   padding: 55px 24px 10px;
+
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo {
+
   width: min(72vw, 420px);
+
   display: block;
+
   pointer-events: none;
+
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
-  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.7));
+
+  filter:
+    drop-shadow(0 20px 50px rgba(0,0,0,0.7));
 }
 
+/* MANTRA */
+
 .mantra {
+
   max-width: 1100px;
+
   margin: 0 auto;
+
   padding: 50px 24px 70px;
+
   text-align: center;
 }
 
 .mantra-headline {
+
   font-size: clamp(42px, 6.5vw, 88px);
+
   line-height: 1.08;
+
   margin-bottom: 42px;
+
   font-weight: 400;
+
   text-transform: uppercase;
 }
 
 .mantra-headline em {
+
   font-style: normal;
-  background: linear-gradient(135deg, #f6dc8b 0%, #c9982f 50%, #f6dc8b 100%);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f6dc8b 0%,
+      #c9982f 50%,
+      #f6dc8b 100%
+    );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .mantra-body {
+
   max-width: 62ch;
+
   margin: 0 auto;
+
   color: var(--ink-dim);
+
   font-size: clamp(17px, 1.6vw, 23px);
+
   line-height: 1.75;
+
   text-transform: uppercase;
 }
 
@@ -89,30 +184,48 @@ body {
 }
 
 .mantra-body em {
+
   color: var(--gold-bright);
+
   font-style: normal;
 }
 
+/* CONTACT */
+
 .contact {
+
   max-width: 760px;
+
   margin: 0 auto;
+
   padding: 30px 24px 140px;
 }
 
 .contact-eyebrow {
+
   text-align: center;
+
   color: var(--gold);
+
   font-size: 12px;
+
   letter-spacing: 0.42em;
+
   text-transform: uppercase;
+
   margin-bottom: 20px;
 }
 
 .contact-title {
+
   text-align: center;
+
   font-size: clamp(44px, 6vw, 74px);
+
   margin-bottom: 16px;
+
   font-weight: 400;
+
   text-transform: uppercase;
 }
 
@@ -121,64 +234,98 @@ body {
 }
 
 .contact-sub {
+
   text-align: center;
+
   color: var(--ink-dim);
+
   max-width: 42ch;
+
   margin: 0 auto 60px;
+
   line-height: 1.7;
+
   text-transform: uppercase;
 }
 
+/* FORM */
+
 form {
+
   display: grid;
+
   gap: 28px;
 }
 
 .form-row {
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 28px;
 }
 
 .field label {
+
   display: block;
+
   margin-bottom: 12px;
+
   color: var(--gold);
+
   font-size: 11px;
+
   letter-spacing: 0.38em;
+
   text-transform: uppercase;
 }
 
 .field input,
 .field textarea,
 .field select {
+
   width: 100%;
+
   background: transparent;
+
   border: none;
   border-bottom: 1px solid var(--rule);
+
   padding: 12px 0;
+
   color: var(--ink);
+
   outline: none;
+
   font-family: inherit;
+
   font-size: 16px;
+
   text-transform: uppercase;
+
   letter-spacing: 0.04em;
 }
 
 .field textarea {
+
   min-height: 120px;
+
   resize: vertical;
+
   line-height: 1.6;
 }
 
 .field input::placeholder,
 .field textarea::placeholder {
+
   color: rgba(245,233,204,0.4);
 }
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
+
   border-bottom-color: var(--gold-bright);
 }
 
@@ -186,36 +333,82 @@ form {
   background: #140b05;
 }
 
+/* BUTTON */
+
 .submit {
+
   margin-top: 18px;
+
   background: transparent;
+
   border: 1px solid var(--gold);
+
   color: var(--gold-bright);
+
   padding: 20px 40px;
+
   font-family: inherit;
+
   font-size: 12px;
+
   letter-spacing: 0.42em;
+
   text-transform: uppercase;
+
   cursor: pointer;
+
   transition: all 0.35s ease;
 }
 
 .submit:hover {
+
   background: var(--gold);
+
   color: #080403;
 }
 
+/* FOOTER */
+
 footer {
+
   border-top: 1px solid var(--rule);
+
   padding: 40px;
+
   text-align: center;
+
   color: var(--ink-dim);
+
   font-size: 11px;
+
   letter-spacing: 0.32em;
+
   text-transform: uppercase;
 }
 
+/* MOBILE */
+
 @media (max-width: 768px) {
+
+  .top-nav {
+
+    top: 18px;
+    left: 18px;
+
+    gap: 12px;
+  }
+
+  .gk-link img {
+    width: 28px;
+  }
+
+  .prop-link {
+
+    font-size: 10px;
+
+    letter-spacing: 0.18em;
+  }
+
   .hero {
     padding: 45px 24px 5px;
   }
@@ -239,13 +432,41 @@ footer {
   footer {
     padding: 34px 20px;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- TOP NAV -->
+
+<div class="top-nav">
+
+  <!-- GK ICON -->
+
+  <a href="index.html" class="gk-link">
+
+    <img
+      src="gold-kash-white-icon.PNG"
+      alt="GK"
+    >
+
+  </a>
+
+  <!-- PROPRIETORS LINK -->
+
+  <a href="proprietors.html" class="prop-link">
+    PROPRIETORS
+  </a>
+
+</div>
+
+<!-- HERO -->
+
 <section class="hero">
+
   <img
     class="logo"
     src="IMG_3254 (1).png"
@@ -253,14 +474,19 @@ footer {
     draggable="false"
     oncontextmenu="return false;"
   >
+
 </section>
 
+<!-- MANTRA -->
+
 <section class="mantra">
+
   <h1 class="mantra-headline">
     We Make Hospitality <em>Cinematic.</em>
   </h1>
 
   <div class="mantra-body">
+
     <p>
       By applying filmmaking and theme park design techniques to IRL experiences we create <em>one-of-a-kind immersive restaurants and nightlife venues.</em>
     </p>
@@ -268,10 +494,15 @@ footer {
     <p>
       We are a full-service hospitality company, building brands from scratch and operating them with one goal in mind: <em>excellence.</em>
     </p>
+
   </div>
+
 </section>
 
+<!-- CONTACT -->
+
 <section class="contact">
+
   <div class="contact-eyebrow">
     Private Inquiries
   </div>
@@ -284,14 +515,24 @@ footer {
     For developers, press, partnerships, and prospective licensees.
   </p>
 
-  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+  <form
+    name="contact"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+  >
+
     <input type="hidden" name="form-name" value="contact">
 
     <p hidden>
-      <label>Don’t fill this out:<input name="bot-field"></label>
+      <label>
+        Don’t fill this out:
+        <input name="bot-field">
+      </label>
     </p>
 
     <div class="form-row">
+
       <div class="field">
         <label>Name</label>
         <input type="text" name="name" placeholder="Your name" required>
@@ -301,16 +542,20 @@ footer {
         <label>Email</label>
         <input type="email" name="email" placeholder="you@example.com" required>
       </div>
+
     </div>
 
     <div class="form-row">
+
       <div class="field">
         <label>Company</label>
         <input type="text" name="company" placeholder="Optional">
       </div>
 
       <div class="field">
+
         <label>Inquiry Type</label>
+
         <select name="reason" required>
           <option value="">Select one</option>
           <option>Development Partnership</option>
@@ -319,19 +564,32 @@ footer {
           <option>Careers</option>
           <option>Other</option>
         </select>
+
       </div>
+
     </div>
 
     <div class="field">
+
       <label>Message</label>
-      <textarea name="message" placeholder="Tell us about your project, location, or idea." required></textarea>
+
+      <textarea
+        name="message"
+        placeholder="Tell us about your project, location, or idea."
+        required
+      ></textarea>
+
     </div>
 
     <button type="submit" class="submit">
       Send Inquiry →
     </button>
+
   </form>
+
 </section>
+
+<!-- FOOTER -->
 
 <footer>
   MMXXVI © Gold Kash Group
