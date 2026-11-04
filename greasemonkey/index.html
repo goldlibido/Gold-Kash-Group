@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0a2618">
+<title>Private</title>
+<style>
+  @font-face { font-family: "Marcellus"; src: url("gate-fonts/Marcellus-Regular.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Marcellus SC"; src: url("gate-fonts/MarcellusSC-Regular.ttf") format("truetype"); font-display: swap; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: radial-gradient(120% 80% at 50% 0%, #11382a 0%, #0a2618 45%, #061a10 100%); color: #eef1ee; font-family: "Marcellus", Georgia, serif;
+    display: grid; place-items: center; padding: 24px; -webkit-font-smoothing: antialiased; }
+  .card { width: min(420px, 100%); text-align: center; }
+  .mark { font-size: clamp(34px, 9vw, 52px); letter-spacing: .06em; line-height: 1; background: linear-gradient(178deg, #fff 0%, #e3e9e6 38%, #a7b3ae 52%, #f3f6f4 66%, #c5cec9 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { margin-top: 18px; font-family: "Marcellus SC", serif; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; color: #a9b9b0; }
+  form { margin-top: 44px; display: grid; gap: 14px; }
+  input { width: 100%; background: transparent; border: 0; border-bottom: 1px solid rgba(230, 238, 234, .4); color: #fff; font: inherit; font-size: 20px; padding: 12px 2px; text-align: center; letter-spacing: .08em; outline: none; border-radius: 0; }
+  input:focus { border-bottom-color: #fff; }
+  button { margin-top: 12px; padding: 16px; background: #eef1ee; color: #0a2618; border: 0; font-family: "Marcellus SC", serif; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; cursor: pointer; }
+  button:disabled { opacity: .6; }
+  .msg { min-height: 22px; font-size: 15px; color: #e8b9b0; }
+  .foot { margin-top: 48px; font-family: "Marcellus SC", serif; font-size: 11px; letter-spacing: .3em; color: #6f8a7b; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="mark">GREASE MONKEY</div>
+  <div class="eyebrow">Private preview</div>
+  <form id="f" autocomplete="off">
+    <input id="pw" type="password" placeholder="Password" aria-label="Password" autocomplete="current-password" autofocus>
+    <div class="msg" id="msg"></div>
+    <button id="go" type="submit">Enter</button>
+  </form>
+  <div class="foot">By invitation only</div>
+</div>
+<script>
+(async function () {
+  const BASE = new URL('./', location.href).pathname;
+  const $ = (id) => document.getElementById(id);
+  const K = await (await fetch('k.json', { cache: 'no-cache' })).json();         // { salt, iter } — public, not secret
+  const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+  function idb(mode, fn) {
+    return new Promise((res, rej) => { const r = indexedDB.open('gm-private', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onerror = () => rej(r.error);
+      r.onsuccess = () => { const tx = r.result.transaction('kv', mode); const q = fn(tx.objectStore('kv')); tx.oncomplete = () => res(q && q.result); tx.onerror = () => rej(tx.error); }; });
+  }
+  async function derive(pw) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    return new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: b64(K.salt), iterations: K.iter, hash: 'SHA-256' }, base, 256));
+  }
+  async function openWith(raw) {                                                   // returns {key, man} or throws on a wrong password
+    const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    const buf = await (await fetch('m.bin', { cache: 'no-cache' })).arrayBuffer();
+    const man = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12))));
+    return { key, man };
+  }
+  const swOK = 'serviceWorker' in navigator && window.isSecureContext;
+  let reg = null;
+  if (swOK) { try { reg = await navigator.serviceWorker.register('sw.js', { scope: BASE }); } catch (e) { reg = null; } }
+
+  async function enter(raw, opened) {
+    if (reg) {
+      await idb('readwrite', (s) => s.put(raw, 'k'));
+      const sw = await navigator.serviceWorker.ready; if (sw.active) sw.active.postMessage({ type: 'key' });
+      location.replace(BASE + 'app/' + location.hash);
+      return;
+    }
+    // No service worker here (some in-app browsers): decrypt the page in place. Everything except the 3D model works.
+    const { key, man } = opened;
+    const get = async (p) => { const f = man.files[p]; const b = await (await fetch('v/' + f.id + '.bin')).arrayBuffer();
+      return new Blob([await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(b, 0, 12) }, key, new Uint8Array(b, 12))], { type: f.type }); };
+    const url = async (p) => URL.createObjectURL(await get(p));
+    const content = JSON.parse(await (await get('content.json')).text());
+    const walk = async (o) => { for (const k in o) { const v = o[k];
+      if (typeof v === 'string' && man.files[v.split('?')[0]] && /\.(jpe?g|png|webp|pdf)$/i.test(v.split('?')[0])) o[k] = await url(v); else if (v && typeof v === 'object') await walk(v); } };
+    await walk(content);
+    let css = await (await get('site.css')).text();
+    for (const f of ['fonts/Marcellus-Regular.ttf', 'fonts/MarcellusSC-Regular.ttf']) if (man.files[f]) css = css.split(f).join(await url(f));
+    const doc = new DOMParser().parseFromString(await (await get('index.html')).text(), 'text/html');
+    document.title = doc.title; document.body.className = ''; document.body.removeAttribute('style');
+    document.head.querySelectorAll('style').forEach((s) => s.remove());
+    const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    document.body.innerHTML = doc.body.innerHTML.replace(/<script[\s\S]*?<\/script>/g, '');
+    window.GM_CONTENT = content;
+    const sc = document.createElement('script'); sc.src = await url('site.js'); document.body.appendChild(sc);
+  }
+
+  // already unlocked on this device?
+  try { const raw = await idb('readonly', (s) => s.get('k')); if (raw) { const o = await openWith(raw); return enter(raw, o); } } catch (e) {}
+
+  $('f').addEventListener('submit', async (e) => {
+    e.preventDefault(); $('go').disabled = true; $('msg').textContent = '';
+    try { const raw = await derive($('pw').value.trim()); const o = await openWith(raw); await enter(raw, o); }
+    catch (err) { $('msg').textContent = 'That password isn’t right.'; $('go').disabled = false; $('pw').select(); }
+  });
+})();
+</script>
+</body>
+</html>

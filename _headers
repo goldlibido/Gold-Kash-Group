@@ -1,0 +1,7 @@
+/greasemonkey/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+/greasemonkey/sw.js
+  Cache-Control: no-cache
+/greasemonkey/m.bin
+  Cache-Control: no-cache
