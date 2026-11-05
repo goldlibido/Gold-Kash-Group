@@ -48,12 +48,17 @@ async function serve(req, u) {
     try { man = await manifest(); } catch (err) { KEY = null; await idb('readwrite', (s) => s.delete('k')).catch(() => {}); return toGate(req); }
     let rel = decodeURIComponent(u.pathname.slice(APP.length));
     if (rel === '' || rel.endsWith('/')) rel += 'index.html';
-    const f = man.files[rel];
+    let f = man.files[rel];
     if (!f) return new Response('not found', { status: 404 });
     let body = MEM.get(f.id);
     if (!body) {
-      const r = await fetch(BASE + 'v/' + f.id + '.bin');
-      if (!r.ok) return new Response('missing', { status: 502 });
+      let r = await fetch(BASE + 'v/' + f.id + '.bin', { cache: 'no-cache' });
+      if (!r.ok) {                                                  // site was updated since this worker loaded its file list: refresh it and retry
+        MAN = null; MEM.clear(); man = await manifest(); f = man.files[rel];
+        if (!f) return new Response('not found', { status: 404 });
+        r = await fetch(BASE + 'v/' + f.id + '.bin', { cache: 'no-cache' });
+        if (!r.ok) throw new Error('missing');                      // handled above: the page retries, then returns to the password page
+      }
       body = await dec(await r.arrayBuffer());
       if (/^video\//.test(f.type)) MEM.set(f.id, body);              // keep decrypted video in memory for range requests
     }
