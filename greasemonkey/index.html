@@ -85,6 +85,34 @@
     document.head.querySelectorAll('style').forEach((s) => s.remove());
     const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     document.body.innerHTML = doc.body.innerHTML.replace(/<script[\s\S]*?<\/script>/g, '');
+    // 3D model without a service worker: decrypt its files, point every import / fetch / texture at in-memory copies, and open it from a blob page
+    window.GM_BUILD3D = async () => {
+      const names = Object.keys(man.files).filter((p) => p.startsWith('3d/'));
+      const blobs = {}, text = {};
+      for (const p of names) { const b = await get(p); blobs[p] = b; if (/\.(js|mjs|html|json)$/.test(p)) text[p] = await b.text(); }
+      const urls = {}; const norm = (base, rel) => { const parts = base.split('/'); parts.pop(); for (const s of rel.split('/')) { if (s === '..') parts.pop(); else if (s !== '.') parts.push(s); } return parts.join('/'); };
+      const mod = (p, stack = []) => {                                              // ES modules are rewritten so every import is a blob URL (dependencies first)
+        if (urls[p]) return urls[p]; if (stack.includes(p)) throw new Error('cycle ' + p);
+        let src = text[p];
+        src = src.replace(/(\bfrom\s*|\bimport\s*)(['"])([^'"]+)\2/g, (m, k, q, s) => {
+          const t = s === 'three' ? '3d/three.module.js' : (s.startsWith('.') ? norm(p, s) : null);
+          return t && text[t] !== undefined ? k + q + mod(t, stack.concat(p)) + q : m; });
+        return (urls[p] = URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      };
+      const assets = {}; for (const p of names) if (/^3d\/(tex|fonts)\//.test(p) || p === '3d/scene.json') assets[p.slice(3)] = URL.createObjectURL(blobs[p]);
+      let app = text['3d/app.js'];
+      app = app.replace("new URLSearchParams(location.search)", "new URLSearchParams('?embed=1')");
+      app = app.replace(/L\.load\('tex\/' \+ f/g, "L.load(window.__A['tex/' + f]");
+      app = app.replace(/fetch\('(tex\/statue_mesh\.json|scene\.json)'\)/g, (m, f) => "fetch(window.__A['" + f + "'])");
+      text['3d/app.js'] = app;
+      let html = text['3d/index.html'];
+      for (const f of ['fonts/Marcellus-Regular.ttf', 'fonts/MarcellusSC-Regular.ttf']) html = html.split(f).join(assets[f]);
+      html = html.replace(/<script type="importmap">[\s\S]*?<\/script>/, '').replace("/[?&]embed=1/.test(location.search)", 'true');
+      html = html.replace('<head>', '<head><scr' + 'ipt>window.__A=' + JSON.stringify(assets) + ';</scr' + 'ipt>');
+      html = html.replace(/<script type="module" src="\.\/app\.js"><\/script>/, '<script type="module" src="' + mod('3d/app.js') + '"></scr' + 'ipt>');
+      return URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    };
+    content.tour.blob = true;
     window.GM_CONTENT = content;
     const sc = document.createElement('script'); sc.src = await url('site.js'); document.body.appendChild(sc);
   }
