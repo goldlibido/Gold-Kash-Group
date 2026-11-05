@@ -4,6 +4,7 @@
 const BASE = new URL('./', self.location).pathname;          // e.g. /greasemonkey/
 const APP = BASE + 'app/';
 let KEY = null, MAN = null;
+const MEM = new Map();
 
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
@@ -49,9 +50,22 @@ async function serve(req, u) {
     if (rel === '' || rel.endsWith('/')) rel += 'index.html';
     const f = man.files[rel];
     if (!f) return new Response('not found', { status: 404 });
-    const r = await fetch(BASE + 'v/' + f.id + '.bin');
-    if (!r.ok) return new Response('missing', { status: 502 });
-    const body = await dec(await r.arrayBuffer());
-    return new Response(body, { headers: { 'Content-Type': f.type, 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' } });
+    let body = MEM.get(f.id);
+    if (!body) {
+      const r = await fetch(BASE + 'v/' + f.id + '.bin');
+      if (!r.ok) return new Response('missing', { status: 502 });
+      body = await dec(await r.arrayBuffer());
+      if (/^video\//.test(f.type)) MEM.set(f.id, body);              // keep decrypted video in memory for range requests
+    }
+    const hd = { 'Content-Type': f.type, 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', 'Accept-Ranges': 'bytes' };
+    const range = req.headers.get('range');
+    if (range) {                                                     // Safari/iOS video needs 206 partial responses
+      const m = /bytes=(\d*)-(\d*)/.exec(range), size = body.byteLength;
+      let start = m && m[1] ? +m[1] : 0, end = m && m[2] ? +m[2] : size - 1;
+      if (m && !m[1] && m[2]) { start = Math.max(0, size - +m[2]); end = size - 1; }
+      end = Math.min(end, size - 1);
+      return new Response(body.slice(start, end + 1), { status: 206, headers: { ...hd, 'Content-Range': `bytes ${start}-${end}/${size}`, 'Content-Length': String(end - start + 1) } });
+    }
+    return new Response(body, { headers: { ...hd, 'Content-Length': String(body.byteLength) } });
   }
 }

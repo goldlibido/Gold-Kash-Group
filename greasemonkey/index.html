@@ -76,7 +76,7 @@
     const url = async (p) => URL.createObjectURL(await get(p));
     const content = JSON.parse(await (await get('content.json')).text());
     const walk = async (o) => { for (const k in o) { const v = o[k];
-      if (typeof v === 'string' && man.files[v.split('?')[0]] && /\.(jpe?g|png|webp|pdf)$/i.test(v.split('?')[0])) o[k] = await url(v); else if (v && typeof v === 'object') await walk(v); } };
+      if (typeof v === 'string' && man.files[v.split('?')[0]] && /\.(jpe?g|png|webp|pdf|mp4)$/i.test(v.split('?')[0])) o[k] = await url(v); else if (v && typeof v === 'object') await walk(v); } };
     await walk(content);
     let css = await (await get('site.css')).text();
     for (const f of ['fonts/Marcellus-Regular.ttf', 'fonts/MarcellusSC-Regular.ttf']) if (man.files[f]) css = css.split(f).join(await url(f));
