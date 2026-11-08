@@ -20,7 +20,9 @@ function idb(mode, fn) {
 }
 async function getKey() {
   if (KEY) return KEY;
-  const raw = await idb('readonly', (s) => s.get('k')).catch(() => null);
+  let raw = null, failed = false;                                   // phones sometimes drop the database connection when the worker restarts: try again before giving up
+  for (let i = 0; i < 4 && !raw; i++) { try { raw = await idb('readonly', (s) => s.get('k')); failed = false; } catch (e) { failed = true; await new Promise((r) => setTimeout(r, 150 * (i + 1))); } if (!raw && !failed) break; }
+  if (failed) throw new Error('keystore');                          // not the same as "no key": never send the visitor back to the password page for this
   if (!raw) return null;
   KEY = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
   return KEY;
@@ -33,13 +35,19 @@ async function manifest() {
   return MAN;
 }
 const toGate = (req) => req.mode === 'navigate' ? Response.redirect(BASE, 302) : new Response('locked', { status: 403 });
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+async function getFile(id) {                                          // network hiccups: retry a couple of times
+  let last;
+  for (let i = 0; i < 3; i++) { try { const r = await fetch(BASE + 'v/' + id + '.bin', { cache: 'no-cache' }); if (r.ok || r.status === 404) return r; last = r; } catch (e) { last = null; } await pause(250 * (i + 1)); }
+  return last;
+}
 
 self.addEventListener('fetch', (e) => {
   const u = new URL(e.request.url);
   if (u.origin !== self.location.origin || !u.pathname.startsWith(APP)) return;
   e.respondWith(serve(e.request, u).catch((err) => e.request.mode === 'navigate'
     ? new Response('<!DOCTYPE html><meta charset="utf-8"><script>var n=+(sessionStorage.gmr||0)+1;sessionStorage.gmr=n;setTimeout(function(){if(n>3){sessionStorage.gmr=0;location.replace("' + BASE + '")}else location.reload()},500)</script>', { headers: { 'Content-Type': 'text/html' } })
-    : new Response('error', { status: 503 })));
+    : new Response('error', { status: 503, headers: { 'Retry-After': '1' } })));
 });
 async function serve(req, u) {
   {
@@ -52,14 +60,15 @@ async function serve(req, u) {
     if (!f) return new Response('not found', { status: 404 });
     let body = MEM.get(f.id);
     if (!body) {
-      let r = await fetch(BASE + 'v/' + f.id + '.bin', { cache: 'no-cache' });
-      if (!r.ok) {                                                  // site was updated since this worker loaded its file list: refresh it and retry
+      let r = await getFile(f.id);
+      if (!r || !r.ok) {                                                  // site was updated since this worker loaded its file list: refresh it and retry
         MAN = null; MEM.clear(); man = await manifest(); f = man.files[rel];
         if (!f) return new Response('not found', { status: 404 });
-        r = await fetch(BASE + 'v/' + f.id + '.bin', { cache: 'no-cache' });
-        if (!r.ok) throw new Error('missing');                      // handled above: the page retries, then returns to the password page
+        r = await getFile(f.id);
+        if (!r || !r.ok) throw new Error('missing');                      // handled above: the page retries, then returns to the password page
       }
-      body = await dec(await r.arrayBuffer());
+      try { body = await dec(await r.arrayBuffer()); }
+      catch (e) { MAN = null; man = await manifest(); f = man.files[rel]; if (!f) return new Response('not found', { status: 404 }); r = await getFile(f.id); if (!r || !r.ok) throw e; body = await dec(await r.arrayBuffer()); }
       if (/^video\//.test(f.type)) MEM.set(f.id, body);              // keep decrypted video in memory for range requests
     }
     const hd = { 'Content-Type': f.type, 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', 'Accept-Ranges': 'bytes' };
