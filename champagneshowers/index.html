@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#F7E6CA">
+<title>Private</title>
+<style>
+  @font-face { font-family: "Crimson Pro"; src: url("gate-fonts/CrimsonPro-Regular.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Crimson Pro"; src: url("gate-fonts/CrimsonPro-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: radial-gradient(120% 80% at 50% 0%, #fcf2e0 0%, #F7E6CA 45%, #ecd4ab 100%); color: #6B1418; font-family: "Crimson Pro", Georgia, serif;
+    display: grid; place-items: center; padding: 24px; -webkit-font-smoothing: antialiased; }
+  .card { width: min(420px, 100%); text-align: center; }
+  .mark { font-size: clamp(34px, 9vw, 52px); letter-spacing: .06em; line-height: 1; background: linear-gradient(178deg, #fff 0%, #e3e9e6 38%, #a7b3ae 52%, #f3f6f4 66%, #c5cec9 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eyebrow { margin-top: 18px; font-family: "Crimson Pro", serif; font-weight: 700; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; color: #8a6326; }
+  form { margin-top: 44px; display: grid; gap: 14px; }
+  input { width: 100%; background: transparent; border: 0; border-bottom: 1px solid rgba(107, 20, 24, .4); color: #6B1418; font: inherit; font-size: 20px; padding: 12px 2px; text-align: center; letter-spacing: .08em; outline: none; border-radius: 0; }
+  input:focus { border-bottom-color: #6B1418; }
+  button { margin-top: 12px; padding: 16px; background: #6B1418; color: #F7E6CA; border: 0; font-family: "Crimson Pro", serif; font-weight: 700; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; cursor: pointer; }
+  button:disabled { opacity: .6; }
+  .msg { min-height: 22px; font-size: 15px; color: #9b1c22; }
+  .foot { margin-top: 48px; font-family: "Crimson Pro", serif; font-weight: 700; font-size: 11px; letter-spacing: .3em; color: #8a6326; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="mark">CHAMPAGNE SHOWERS</div>
+  <div class="eyebrow">Private preview</div>
+  <form id="f" autocomplete="off">
+    <input id="pw" type="password" placeholder="Password" aria-label="Password" autocomplete="current-password" autofocus>
+    <div class="msg" id="msg"></div>
+    <button id="go" type="submit">Enter</button>
+  </form>
+  <div class="foot">By invitation only</div>
+</div>
+<script>
+(async function () {
+  const BASE = new URL('./', location.href).pathname;
+  const $ = (id) => document.getElementById(id);
+  const K = await (await fetch('k.json', { cache: 'no-cache' })).json();         // { salt, iter } — public, not secret
+  const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+  function idb(mode, fn) {
+    return new Promise((res, rej) => { const r = indexedDB.open('cs-private', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onerror = () => rej(r.error);
+      r.onsuccess = () => { const tx = r.result.transaction('kv', mode); const q = fn(tx.objectStore('kv')); tx.oncomplete = () => res(q && q.result); tx.onerror = () => rej(tx.error); }; });
+  }
+  async function derive(pw) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    return new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: b64(K.salt), iterations: K.iter, hash: 'SHA-256' }, base, 256));
+  }
+  async function openWith(raw) {                                                   // returns {key, man} or throws on a wrong password
+    const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+    const buf = await (await fetch('m.bin', { cache: 'no-cache' })).arrayBuffer();
+    const man = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12))));
+    return { key, man };
+  }
+  const swOK = 'serviceWorker' in navigator && window.isSecureContext;
+  let reg = null;
+  if (swOK) { try { reg = await navigator.serviceWorker.register('sw.js', { scope: BASE }); } catch (e) { reg = null; } }
+
+  async function enter(raw, opened) {
+    if (reg) {
+      await idb('readwrite', (s) => s.put(raw, 'k'));
+      const sw = await navigator.serviceWorker.ready; if (sw.active) sw.active.postMessage({ type: 'key' });
+      location.replace(BASE + 'app/' + location.hash);
+      return;
+    }
+    // No service worker here (some in-app browsers): decrypt the page in place. Everything except the 3D model works.
+    const { key, man } = opened;
+    const get = async (p) => { const f = man.files[p]; const b = await (await fetch('v/' + f.id + '.bin')).arrayBuffer();
+      return new Blob([await crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(b, 0, 12) }, key, new Uint8Array(b, 12))], { type: f.type }); };
+    const url = async (p) => URL.createObjectURL(await get(p));
+    const content = JSON.parse(await (await get('content.json')).text());
+    const walk = async (o) => { for (const k in o) { const v = o[k];
+      if (typeof v === 'string' && man.files[v.split('?')[0]] && /\.(jpe?g|png|webp|pdf|mp4)$/i.test(v.split('?')[0])) o[k] = await url(v); else if (v && typeof v === 'object') await walk(v); } };
+    await walk(content);
+    let css = await (await get('site.css')).text();
+    for (const f of ['fonts/CrimsonPro-Regular.ttf', 'fonts/CrimsonPro-Bold.ttf', 'fonts/CrimsonPro-Italic.ttf']) if (man.files[f]) css = css.split(f).join(await url(f));
+    const doc = new DOMParser().parseFromString(await (await get('index.html')).text(), 'text/html');
+    document.title = doc.title; document.body.className = ''; document.body.removeAttribute('style');
+    document.head.querySelectorAll('style').forEach((s) => s.remove());
+    const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    document.body.innerHTML = doc.body.innerHTML.replace(/<script[\s\S]*?<\/script>/g, '');
+    // 3D model without a service worker: decrypt its files, point every import / fetch / texture at in-memory copies, and open it from a blob page
+    window.GM_BUILD3D = async () => {
+      const names = Object.keys(man.files).filter((p) => p.startsWith('3d/'));
+      const blobs = {}, text = {};
+      for (const p of names) { const b = await get(p); blobs[p] = b; if (/\.(js|mjs|html|json)$/.test(p)) text[p] = await b.text(); }
+      const urls = {}; const norm = (base, rel) => { const parts = base.split('/'); parts.pop(); for (const s of rel.split('/')) { if (s === '..') parts.pop(); else if (s !== '.') parts.push(s); } return parts.join('/'); };
+      const mod = (p, stack = []) => {                                              // ES modules are rewritten so every import is a blob URL (dependencies first)
+        if (urls[p]) return urls[p]; if (stack.includes(p)) throw new Error('cycle ' + p);
+        let src = text[p];
+        src = src.replace(/(\bfrom\s*|\bimport\s*)(['"])([^'"]+)\2/g, (m, k, q, s) => {
+          const t = s === 'three' ? '3d/three.module.js' : (s.startsWith('.') ? norm(p, s) : null);
+          return t && text[t] !== undefined ? k + q + mod(t, stack.concat(p)) + q : m; });
+        return (urls[p] = URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      };
+      const assets = {}; for (const p of names) if (/^3d\/(tex|fonts)\//.test(p) || p === '3d/scene.json') assets[p.slice(3)] = URL.createObjectURL(blobs[p]);
+      let app = text['3d/app.js'];
+      app = app.replace("new URLSearchParams(location.search)", "new URLSearchParams('?embed=1')");
+      app = app.replace(/\.load\('tex\/' \+ f/g, ".load(window.__A['tex/' + f]");
+      app = app.replace(/fetch\('(scene\.json)'\)/g, (m, f) => "fetch(window.__A['" + f + "'])");
+      text['3d/app.js'] = app;
+      let html = text['3d/index.html'];
+      html = html.split('tex/seal.png').join(assets['tex/seal.png']);
+      html = html.replace(/<script type="importmap">[\s\S]*?<\/script>/, '').replace("/[?&]embed=1/.test(location.search)", 'true');
+      html = html.replace('<head>', '<head><scr' + 'ipt>window.__A=' + JSON.stringify(assets) + ';</scr' + 'ipt>');
+      html = html.replace(/<script type="module" src="\.\/app\.js"><\/script>/, '<script type="module" src="' + mod('3d/app.js') + '"></scr' + 'ipt>');
+      return URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    };
+    content.tour.blob = true;
+    window.GM_CONTENT = content;
+    const sc = document.createElement('script'); sc.src = await url('site.js'); document.body.appendChild(sc);
+  }
+
+  // already unlocked on this device?
+  try { const raw = await idb('readonly', (s) => s.get('k')); if (raw) { const o = await openWith(raw); return enter(raw, o); } } catch (e) {}
+
+  $('f').addEventListener('submit', async (e) => {
+    e.preventDefault(); $('go').disabled = true; $('msg').textContent = '';
+    try { const raw = await derive($('pw').value.trim()); const o = await openWith(raw); await enter(raw, o); }
+    catch (err) { $('msg').textContent = 'That password isn’t right.'; $('go').disabled = false; $('pw').select(); }
+  });
+})();
+</script>
+</body>
+</html>

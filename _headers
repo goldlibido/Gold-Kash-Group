@@ -5,3 +5,10 @@
   Cache-Control: no-cache
 /greasemonkey/m.bin
   Cache-Control: no-cache
+/champagneshowers/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+/champagneshowers/sw.js
+  Cache-Control: no-cache
+/champagneshowers/m.bin
+  Cache-Control: no-cache
