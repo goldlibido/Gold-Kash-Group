@@ -19,3 +19,10 @@
   Cache-Control: no-cache
 /prazise/m.bin
   Cache-Control: no-cache
+/gli/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+/gli/sw.js
+  Cache-Control: no-cache
+/gli/m.bin
+  Cache-Control: no-cache
